@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FlameDating.Infrastructure\FlameDating.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
