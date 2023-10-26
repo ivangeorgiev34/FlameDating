@@ -1,4 +1,6 @@
+using FlameDating.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -10,10 +12,10 @@ namespace FlameDating
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //builder.Services.AddDbContext<PropertyProDbContext>(options =>
-            //{
-            //    options.UseSqlServer(builder.Configuration.GetConnectionString("FlameDatingConnectionString"));
-            //});
+            builder.Services.AddDbContext<FlameDatingDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("FlameDatingConnectionString"));
+            });
 
             builder.Services.AddAuthentication(options =>
             {
