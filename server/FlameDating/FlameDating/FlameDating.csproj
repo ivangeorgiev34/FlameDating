@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\FlameDating.Core\FlameDating.Core.csproj" />
     <ProjectReference Include="..\FlameDating.Infrastructure\FlameDating.Infrastructure.csproj" />
   </ItemGroup>
