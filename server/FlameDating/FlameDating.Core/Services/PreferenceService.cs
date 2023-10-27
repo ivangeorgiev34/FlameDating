@@ -2,6 +2,7 @@
 using FlameDating.Infrastructure.Common;
 using FlameDating.Infrastructure.Enums;
 using FlameDating.Infrastructure.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlameDating.Core.Services
 {
@@ -26,6 +27,14 @@ namespace FlameDating.Core.Services
             await repo.SaveChangesAsync();
 
             return preference.Id;
+        }
+
+        public async Task<Preference?> GetPreferenceByIdAsync(Guid id)
+        {
+            var preference = await repo.All<Preference>()
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            return preference;
         }
     }
 }
