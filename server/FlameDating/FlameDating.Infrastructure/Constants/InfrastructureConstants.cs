@@ -78,5 +78,20 @@
 
             public const string RECIEVER_USER_ID_REQUIRED_ERROR_MESSAGE = "Reciever user id is required";
         }
+
+        public static class RegisterDto
+        {
+            public const string EMAIL_REQUIRED_ERROR_MESSAGE = "Email is required";
+
+            public const string EMAIL_INVALID_ERROR_MESSAGE = "Email is invalid";
+
+            public const string USERNAME_REQUIRED_ERROR_MESSAGE = "Username is required";
+
+            public const string PASSWORD_REQUIRED_ERROR_MESSAGE = "Password is required";
+
+            public const string CONFIRM_PASSWORD_REQUIRED_ERROR_MESSAGE = "Confirm password is required";
+
+            public const string PASSWORDS_COMPARE_ERROR_MESSAGE = "Passwords do not match";
+        }
     }
 }
