@@ -1,3 +1,4 @@
+using FlameDating.Extensions;
 using FlameDating.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +42,8 @@ namespace FlameDating
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            ServiceCollectionExtension.AddServices(builder.Services);
 
             var app = builder.Build();
 
