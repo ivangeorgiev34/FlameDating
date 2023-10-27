@@ -43,7 +43,7 @@ namespace FlameDating.Core.Services
                 throw new NullReferenceException("User doesn't have preference");
             }
 
-            userPreference.Gender = editProfileDto.Gender;
+            userPreference.Gender = editProfileDto.PreferedGender;
             userPreference.MaximumDistance = editProfileDto.MaximumDistance;
 
             user.FirstName = editProfileDto.FirstName;
@@ -55,11 +55,29 @@ namespace FlameDating.Core.Services
             user.School = editProfileDto.School;
             user.Job = editProfileDto.Job;
             user.Biography = editProfileDto.Biography;
-            user.FirstProfilePicture = (await ConvertProfilePictureIntoByteArray(editProfileDto.FirstProfilePicture))!;
-            user.SecondProfilePicture = await ConvertProfilePictureIntoByteArray(editProfileDto?.SecondProfilePicture);
-            user.ThirdProfilePicture = await ConvertProfilePictureIntoByteArray(editProfileDto?.ThirdProfilePicture);
-            user.FourthProfilePicture = await ConvertProfilePictureIntoByteArray(editProfileDto?.FourthProfilePicture);
-            user.FifthProfilePicture = await ConvertProfilePictureIntoByteArray(editProfileDto?.FifthProfilePicture);
+
+            var newFirstProfilePictureBytes = await ConvertProfilePictureIntoByteArray(editProfileDto.FirstProfilePicture);
+            user.FirstProfilePicture = newFirstProfilePictureBytes!;
+
+            var newSecondProfilePictureBytes = editProfileDto.SecondProfilePicture == null
+                ? user.SecondProfilePicture
+                : await ConvertProfilePictureIntoByteArray(editProfileDto.SecondProfilePicture);
+            user.SecondProfilePicture = newSecondProfilePictureBytes;
+
+            var newThirdProfilePictureBytes = editProfileDto.ThirdProfilePicture == null
+                ? user.ThirdProfilePicture
+                : await ConvertProfilePictureIntoByteArray(editProfileDto.ThirdProfilePicture);
+            user.ThirdProfilePicture = newThirdProfilePictureBytes;
+
+            var newFourthProfilePictureBytes = editProfileDto.FourthProfilePicture == null
+                ? user.FourthProfilePicture
+                : await ConvertProfilePictureIntoByteArray(editProfileDto.FourthProfilePicture);
+            user.FourthProfilePicture = newFourthProfilePictureBytes;
+
+            var newFifthProfilePictureBytes = editProfileDto.FifthProfilePicture == null
+                ? user.FifthProfilePicture
+                : await ConvertProfilePictureIntoByteArray(editProfileDto.FifthProfilePicture);
+            user.FifthProfilePicture = newFifthProfilePictureBytes;
 
             await repo.SaveChangesAsync();
         }
