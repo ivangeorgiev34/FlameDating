@@ -1,0 +1,31 @@
+﻿using FlameDating.Core.Contracts;
+using FlameDating.Infrastructure.Common;
+using FlameDating.Infrastructure.Enums;
+using FlameDating.Infrastructure.Models;
+
+namespace FlameDating.Core.Services
+{
+    public class PreferenceService : IPreferenceService
+    {
+        private readonly IRepository repo;
+
+        public PreferenceService(IRepository _repo)
+        {
+            this.repo = _repo;
+        }
+
+        public async Task<Guid> CreatePreferenceAsync(int maximumDistance, Gender PreferedGender)
+        {
+            var preference = new Preference()
+            {
+                Gender = PreferedGender,
+                MaximumDistance = maximumDistance
+            };
+
+            await repo.AddAsync(preference);
+            await repo.SaveChangesAsync();
+
+            return preference.Id;
+        }
+    }
+}
