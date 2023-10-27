@@ -1,8 +1,5 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/server/FlameDating/FlameDating/bin/Debug/net6.0
+﻿/server/FlameDating/FlameDating/bin/Debug/net6.0
 /server/FlameDating/.vs
 /server/FlameDating/FlameDating.Core/bin/Debug/net6.0
 /server/FlameDating/FlameDating.Infrastructure/bin/Debug/net6.0
+**/obj
