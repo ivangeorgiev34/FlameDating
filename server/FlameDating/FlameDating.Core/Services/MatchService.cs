@@ -1,6 +1,7 @@
 ﻿using FlameDating.Core.Contracts;
 using FlameDating.Infrastructure.Common;
 using FlameDating.Infrastructure.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlameDating.Core.Services
 {
@@ -30,6 +31,15 @@ namespace FlameDating.Core.Services
 
             await repo.AddAsync(match);
             await repo.SaveChangesAsync();
+        }
+
+        public async Task<bool> MatchExistsAsync(Guid firstUserId, Guid secondUserId)
+        {
+            var matchExists = await repo.AllReadonly<Match>()
+                .AnyAsync(m => (m.FirstUserId == firstUserId && m.SecondUserId == secondUserId)
+                || (m.FirstUserId == secondUserId && m.SecondUserId == firstUserId));
+
+            return matchExists;
         }
     }
 }
