@@ -20,12 +20,28 @@ namespace FlameDating.Core.Services
 
         public async Task<bool> LikeUserAsync(Guid likerUserId, Guid likedUserId)
         {
+            var likedAlreadyLiked = await repo.AllReadonly<Like>()
+                .AnyAsync(l => l.LikedUserId == likedUserId
+                    && l.LikerUserId == likerUserId);
+
+            if (likedAlreadyLiked == true)
+            {
+                throw new InvalidOperationException("You have already liked this user");
+            }
+
             var isLikerLiked = await repo.AllReadonly<Like>()
                 .AnyAsync(l => l.LikedUserId == likerUserId
                     && l.LikerUserId == likedUserId);
 
             if (isLikerLiked == true)
             {
+                var matchExists = await matchService.MatchExistsAsync(likerUserId, likedUserId);
+
+                if (matchExists == true)
+                {
+                    throw new InvalidOperationException("You have already been liked by this user");
+                }
+
                 await matchService.CreateMatchAsync(likerUserId, likedUserId);
 
                 return true;
@@ -42,9 +58,7 @@ namespace FlameDating.Core.Services
             await repo.AddAsync(like);
             await repo.SaveChangesAsync();
 
-            return true;
-
-
+            return false;
         }
     }
 }
