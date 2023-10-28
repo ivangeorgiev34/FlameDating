@@ -108,6 +108,7 @@ namespace FlameDating.Extensions
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IPreferenceService, PreferenceService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ILikeService, LikeService>();
         }
     }
 }
