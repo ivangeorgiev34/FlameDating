@@ -109,6 +109,7 @@ namespace FlameDating.Extensions
             services.AddScoped<IPreferenceService, PreferenceService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ILikeService, LikeService>();
+            services.AddScoped<IChatService, ChatService>();
         }
     }
 }
