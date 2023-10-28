@@ -20,20 +20,20 @@ namespace FlameDating.Core.Services
 
         public async Task<bool> LikeUserAsync(Guid likerUserId, Guid likedUserId)
         {
-            var likedAlreadyLiked = await repo.AllReadonly<Like>()
+            var likedUserAlreadyLiked = await repo.AllReadonly<Like>()
                 .AnyAsync(l => l.LikedUserId == likedUserId
                     && l.LikerUserId == likerUserId);
 
-            if (likedAlreadyLiked == true)
+            if (likedUserAlreadyLiked == true)
             {
                 throw new InvalidOperationException("You have already liked this user");
             }
 
-            var isLikerLiked = await repo.AllReadonly<Like>()
+            var isLikerUserLiked = await repo.AllReadonly<Like>()
                 .AnyAsync(l => l.LikedUserId == likerUserId
                     && l.LikerUserId == likedUserId);
 
-            if (isLikerLiked == true)
+            if (isLikerUserLiked == true)
             {
                 var matchExists = await matchService.MatchExistsAsync(likerUserId, likedUserId);
 
