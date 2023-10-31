@@ -18,11 +18,64 @@ namespace FlameDating.Core.Services
             this.matchService = _matchService;
         }
 
+        public async Task DislikeUserAsync(Guid dislikerUserId, Guid dislikedUserId)
+        {
+            var dislikedUserAlreadyDisliked = await repo.AllReadonly<Like>()
+                 .AnyAsync(l => l.LikedUserId == dislikedUserId
+                     && l.LikerUserId == dislikerUserId
+                    && l.LikeStatus == LikeStatus.Dislike);
+
+            if (dislikedUserAlreadyDisliked == true)
+            {
+                throw new InvalidOperationException("You have already disliked this user");
+            }
+
+            var dislikedUserAlreadyLiked = await repo.AllReadonly<Like>()
+                .AnyAsync(l => l.LikedUserId == dislikedUserId
+                    && l.LikerUserId == dislikerUserId
+                    && l.LikeStatus == LikeStatus.Like);
+
+            if (dislikedUserAlreadyLiked == true)
+            {
+                throw new InvalidOperationException("You have already liked this user");
+            }
+
+            var isDislikerUserDisliked = await repo.AllReadonly<Like>()
+                 .AnyAsync(l => l.LikedUserId == dislikerUserId
+                     && l.LikerUserId == dislikedUserId
+                     && l.LikeStatus == LikeStatus.Dislike);
+
+            if (isDislikerUserDisliked == false)
+            {
+                var like = new Like()
+                {
+                    LikerUserId = dislikerUserId,
+                    LikedUserId = dislikedUserId,
+                    LikeStatus = LikeStatus.Dislike,
+                    LikeDate = DateTime.Now
+                };
+
+                await repo.AddAsync(like);
+                await repo.SaveChangesAsync();
+            }
+        }
+
         public async Task<bool> LikeUserAsync(Guid likerUserId, Guid likedUserId)
         {
+            var dislikedUserAlreadyDisliked = await repo.AllReadonly<Like>()
+                .AnyAsync(l => l.LikedUserId == likedUserId
+                    && l.LikerUserId == likerUserId
+                    && l.LikeStatus == LikeStatus.Dislike);
+
+            if (dislikedUserAlreadyDisliked == true)
+            {
+                throw new InvalidOperationException("You have already disliked this user");
+            }
+
             var likedUserAlreadyLiked = await repo.AllReadonly<Like>()
                 .AnyAsync(l => l.LikedUserId == likedUserId
-                    && l.LikerUserId == likerUserId);
+                    && l.LikerUserId == likerUserId
+                    && l.LikeStatus == LikeStatus.Like);
 
             if (likedUserAlreadyLiked == true)
             {
@@ -31,7 +84,8 @@ namespace FlameDating.Core.Services
 
             var isLikerUserLiked = await repo.AllReadonly<Like>()
                 .AnyAsync(l => l.LikedUserId == likerUserId
-                    && l.LikerUserId == likedUserId);
+                    && l.LikerUserId == likedUserId
+                    && l.LikeStatus == LikeStatus.Like);
 
             if (isLikerUserLiked == true)
             {
