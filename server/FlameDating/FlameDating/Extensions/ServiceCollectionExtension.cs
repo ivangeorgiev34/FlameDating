@@ -90,20 +90,16 @@ namespace FlameDating.Extensions
 
             services.AddCors(options =>
             {
-                //options.AddPolicy("LocalServer", policy =>
-                //{
-                //    policy.WithOrigins("http://127.0.0.1:5500")
-                //    .AllowAnyMethod()
-                //    .AllowAnyHeader();
-                //});
-
                 options.AddPolicy("LocalServer", policy =>
                 {
-                    policy.AllowAnyOrigin()
+                    policy.WithOrigins("http://localhost:3000")
+                    .AllowCredentials()
                     .AllowAnyMethod()
                     .AllowAnyHeader();
                 });
             });
+
+            services.AddSignalR();
 
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IPreferenceService, PreferenceService>();
