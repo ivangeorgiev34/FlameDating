@@ -1,4 +1,5 @@
 using FlameDating.Extensions;
+using FlameDating.Hubs;
 
 namespace FlameDating
 {
@@ -20,11 +21,13 @@ namespace FlameDating
 
             app.UseHttpsRedirection();
 
+            app.UseCors("LocalServer");
+
             app.UseAuthentication();
             app.UseAuthorization();
 
-
             app.MapControllers();
+            app.MapHub<ChatHub>("/chatHub");
 
             app.Run();
         }
