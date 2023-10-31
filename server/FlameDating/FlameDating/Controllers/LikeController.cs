@@ -23,6 +23,7 @@ namespace FlameDating.Controllers
             this.userManager = _userManager;
             this.likeService = _likeService;
         }
+
         [HttpPost]
         [Route("like/{likedUserId}")]
         public async Task<IActionResult> LikeUser(string likedUserId)
@@ -65,6 +66,51 @@ namespace FlameDating.Controllers
                 {
                     Status = ApplicationConstants.Response.RESPONSE_STATUS_SUCCESS,
                     Message = "Successfully liked user"
+                });
+            }
+            catch (InvalidOperationException ioe)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new Response
+                {
+                    Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
+                    Message = ioe.Message
+                });
+            }
+        }
+
+        [HttpPost]
+        [Route("dislike/{dislikedUserId}")]
+        public async Task<IActionResult> DislikeUser(string dislikedUserId)
+        {
+            if (IsIdValidGuidAndNotNull(dislikedUserId) == false
+                || await userManager.FindByIdAsync(dislikedUserId) == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new Response
+                {
+                    Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
+                    Message = "User not found"
+                });
+            }
+
+            var dislikerUserId = GetUserId(HttpContext);
+
+            if (Guid.Parse(dislikedUserId) == Guid.Parse(dislikerUserId!))
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new Response
+                {
+                    Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
+                    Message = "User cannot dislike himself"
+                });
+            }
+
+            try
+            {
+                await likeService.DislikeUserAsync(Guid.Parse(dislikerUserId!), Guid.Parse(dislikedUserId));
+
+                return StatusCode(StatusCodes.Status200OK, new Response
+                {
+                    Status = ApplicationConstants.Response.RESPONSE_STATUS_SUCCESS,
+                    Message = "Successfully disliked user"
                 });
             }
             catch (InvalidOperationException ioe)
