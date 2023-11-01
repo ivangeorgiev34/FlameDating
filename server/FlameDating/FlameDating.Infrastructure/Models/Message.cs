@@ -15,6 +15,8 @@ namespace FlameDating.Infrastructure.Models
         [Required(ErrorMessage = InfrastructureConstants.Message.DATE_REQUIRED_ERROR_MESSAGE)]
         public DateTime Date { get; set; }
 
+        public bool IsSeen { get; set; } = false;
+
         [Required(ErrorMessage = InfrastructureConstants.Message.SENDER_USER_ID_REQUIRED_ERROR_MESSAGE)]
         [ForeignKey(nameof(Sender))]
         public Guid SenderUserId { get; set; }
