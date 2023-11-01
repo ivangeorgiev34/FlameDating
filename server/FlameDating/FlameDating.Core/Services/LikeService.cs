@@ -42,8 +42,7 @@ namespace FlameDating.Core.Services
 
             var isDislikerUserDisliked = await repo.AllReadonly<Like>()
                  .AnyAsync(l => l.LikedUserId == dislikerUserId
-                     && l.LikerUserId == dislikedUserId
-                     && l.LikeStatus == LikeStatus.Dislike);
+                     && l.LikerUserId == dislikedUserId);
 
             if (isDislikerUserDisliked == false)
             {
