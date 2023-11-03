@@ -30,6 +30,21 @@ namespace FlameDating.Extensions
             //Adding Jwt Bearer
             .AddJwtBearer(options =>
             {
+                options.Events = new JwtBearerEvents()
+                {
+                    OnMessageReceived = context =>
+                    {
+
+                        var accessToken = context.Request.Query["access_token"];
+                        Console.WriteLine(accessToken);
+                        if (string.IsNullOrEmpty(accessToken) == false)
+                        {
+                            context.Token = accessToken;
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                };
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters()
@@ -107,6 +122,7 @@ namespace FlameDating.Extensions
             services.AddScoped<ILikeService, LikeService>();
             services.AddScoped<IChatService, ChatService>();
             services.AddScoped<IMatchService, MatchService>();
+            services.AddScoped<IMessageService, MessageService>();
         }
     }
 }
