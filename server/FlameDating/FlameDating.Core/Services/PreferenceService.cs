@@ -29,6 +29,21 @@ namespace FlameDating.Core.Services
             return preference.Id;
         }
 
+        public async Task EditPreferenceByIdAsync(Guid id, int maximumDistance, Gender PreferedGender)
+        {
+            var preference = await GetPreferenceByIdAsync(id);
+
+            if (preference == null)
+            {
+                throw new NullReferenceException("Preference does not exist");
+            }
+
+            preference.MaximumDistance = maximumDistance;
+            preference.Gender = PreferedGender;
+
+            await repo.SaveChangesAsync();
+        }
+
         public async Task<Preference?> GetPreferenceByIdAsync(Guid id)
         {
             var preference = await repo.All<Preference>()
