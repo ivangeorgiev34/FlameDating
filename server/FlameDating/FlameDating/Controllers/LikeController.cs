@@ -25,7 +25,7 @@ namespace FlameDating.Controllers
         }
 
         [HttpPost]
-        [Route("like/{likedUserId}")]
+        [Route("/like/{likedUserId}")]
         public async Task<IActionResult> LikeUser(string likedUserId)
         {
             if (IsIdValidGuidAndNotNull(likedUserId) == false
@@ -79,7 +79,7 @@ namespace FlameDating.Controllers
         }
 
         [HttpPost]
-        [Route("dislike/{dislikedUserId}")]
+        [Route("/dislike/{dislikedUserId}")]
         public async Task<IActionResult> DislikeUser(string dislikedUserId)
         {
             if (IsIdValidGuidAndNotNull(dislikedUserId) == false
