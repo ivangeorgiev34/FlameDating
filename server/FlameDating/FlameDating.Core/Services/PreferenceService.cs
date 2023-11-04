@@ -36,5 +36,13 @@ namespace FlameDating.Core.Services
 
             return preference;
         }
+
+        public async Task<bool> PreferenceExistsByIdAsync(Guid id)
+        {
+            var preferenceExists = await repo.AllReadonly<Preference>()
+                .AnyAsync(p => p.Id == id);
+
+            return preferenceExists;
+        }
     }
 }
