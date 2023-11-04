@@ -9,5 +9,7 @@ namespace FlameDating.Core.Contracts
         Task<byte[]?> ConvertProfilePictureIntoByteArray(IFormFile? profilePicture);
 
         Task EditProfileAsync(User user, EditProfileDto editProfileDto);
+
+        Task<bool> UserHasPreferenceByIdAsync(Guid userId, Guid preferenceId);
     }
 }
