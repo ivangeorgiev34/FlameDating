@@ -23,7 +23,7 @@ namespace FlameDating.Controllers
         }
 
         [HttpPut]
-        [Route("/edit/{preferenceId}")]
+        [Route("edit/{preferenceId}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> EditPreference(string preferenceId, PreferenceDto preferenceDto)
         {
@@ -55,7 +55,7 @@ namespace FlameDating.Controllers
 
                 return StatusCode(StatusCodes.Status201Created, new Response
                 {
-                    Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
+                    Status = ApplicationConstants.Response.RESPONSE_STATUS_SUCCESS,
                     Message = "Preference edited successfully"
                 });
             }
