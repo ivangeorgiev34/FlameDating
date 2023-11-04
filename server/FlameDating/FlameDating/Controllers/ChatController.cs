@@ -19,7 +19,7 @@ namespace FlameDating.Controllers
         }
 
         [HttpGet]
-        [Route("/chats")]
+        [Route("chats")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetUsersChats()
         {
