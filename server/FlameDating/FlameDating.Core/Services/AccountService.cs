@@ -3,6 +3,7 @@ using FlameDating.Infrastructure.Common;
 using FlameDating.Infrastructure.Dtos.Account;
 using FlameDating.Infrastructure.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlameDating.Core.Services
 {
@@ -80,6 +81,14 @@ namespace FlameDating.Core.Services
             user.FifthProfilePicture = newFifthProfilePictureBytes;
 
             await repo.SaveChangesAsync();
+        }
+
+        public async Task<bool> UserHasPreferenceByIdAsync(Guid userId, Guid preferenceId)
+        {
+            var userHasPreference = await repo.AllReadonly<User>()
+                .AnyAsync(u => u.Id == userId && u.PreferenceId == preferenceId);
+
+            return userHasPreference;
         }
     }
 }
