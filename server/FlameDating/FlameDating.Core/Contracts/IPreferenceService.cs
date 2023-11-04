@@ -10,5 +10,7 @@ namespace FlameDating.Core.Contracts
         Task<Preference?> GetPreferenceByIdAsync(Guid id);
 
         Task<bool> PreferenceExistsByIdAsync(Guid id);
+
+        Task EditPreferenceByIdAsync(Guid id, int maximumDistance, Gender PreferedGender);
     }
 }
