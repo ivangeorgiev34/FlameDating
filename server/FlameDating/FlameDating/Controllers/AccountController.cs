@@ -35,7 +35,7 @@ namespace FlameDating.Controllers
         }
 
         [HttpPost]
-        [Route("register")]
+        [Route("/register")]
         public async Task<IActionResult> Register([FromForm] RegisterDto registerDto)
         {
             var userExists = await userManager.FindByEmailAsync(registerDto.Email);
@@ -99,7 +99,7 @@ namespace FlameDating.Controllers
         }
 
         [HttpPost]
-        [Route("login")]
+        [Route("/login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             var user = await userManager.FindByEmailAsync(loginDto.Email);
@@ -154,7 +154,7 @@ namespace FlameDating.Controllers
         }
 
         [HttpPut]
-        [Route("edit/{userId}")]
+        [Route("/edit/{userId}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> EditProfile([FromForm] EditProfileDto editProfileDto, string userId)
         {
