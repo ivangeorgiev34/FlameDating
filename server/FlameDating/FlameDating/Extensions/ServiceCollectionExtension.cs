@@ -123,6 +123,7 @@ namespace FlameDating.Extensions
             services.AddScoped<IChatService, ChatService>();
             services.AddScoped<IMatchService, MatchService>();
             services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IInterestService, InterestService>();
         }
     }
 }
