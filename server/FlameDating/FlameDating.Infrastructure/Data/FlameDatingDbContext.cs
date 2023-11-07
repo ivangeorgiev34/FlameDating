@@ -27,8 +27,12 @@ namespace FlameDating.Infrastructure.Data
 
         public DbSet<Chat>? Chats { get; set; }
 
+        public DbSet<UserInterest>? UsersInterests { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<UserInterest>()
+                .HasKey(ui => new { ui.UserId, ui.InterestId });
 
             builder.Entity<Like>()
                 .HasOne(l => l.Liker)
