@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlameDating.Infrastructure.Migrations
 {
     [DbContext(typeof(FlameDatingDbContext))]
-    [Migration("20231026180240_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20231106155529_AddUsersInterestsTable")]
+    partial class AddUsersInterestsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,12 +45,7 @@ namespace FlameDating.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Interests");
 
@@ -204,6 +199,9 @@ namespace FlameDating.Infrastructure.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsSeen")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("RecieverUserId")
                         .HasColumnType("uniqueidentifier");
@@ -368,6 +366,21 @@ namespace FlameDating.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("FlameDating.Infrastructure.Models.UserInterest", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InterestId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "InterestId");
+
+                    b.HasIndex("InterestId");
+
+                    b.ToTable("UsersInterests");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
                     b.Property<Guid>("Id")
@@ -499,13 +512,6 @@ namespace FlameDating.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("FlameDating.Infrastructure.Models.Interest", b =>
-                {
-                    b.HasOne("FlameDating.Infrastructure.Models.User", null)
-                        .WithMany("Interests")
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("FlameDating.Infrastructure.Models.Like", b =>
                 {
                     b.HasOne("FlameDating.Infrastructure.Models.User", "Liked")
@@ -586,6 +592,25 @@ namespace FlameDating.Infrastructure.Migrations
                     b.Navigation("Preference");
                 });
 
+            modelBuilder.Entity("FlameDating.Infrastructure.Models.UserInterest", b =>
+                {
+                    b.HasOne("FlameDating.Infrastructure.Models.Interest", "Interest")
+                        .WithMany("UsersInterests")
+                        .HasForeignKey("InterestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FlameDating.Infrastructure.Models.User", "User")
+                        .WithMany("UsersInterests")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Interest");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -642,13 +667,18 @@ namespace FlameDating.Infrastructure.Migrations
                     b.Navigation("Messages");
                 });
 
+            modelBuilder.Entity("FlameDating.Infrastructure.Models.Interest", b =>
+                {
+                    b.Navigation("UsersInterests");
+                });
+
             modelBuilder.Entity("FlameDating.Infrastructure.Models.User", b =>
                 {
-                    b.Navigation("Interests");
-
                     b.Navigation("Likes");
 
                     b.Navigation("Matches");
+
+                    b.Navigation("UsersInterests");
                 });
 #pragma warning restore 612, 618
         }

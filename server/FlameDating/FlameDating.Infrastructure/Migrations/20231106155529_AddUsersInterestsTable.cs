@@ -4,7 +4,7 @@
 
 namespace FlameDating.Infrastructure.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class AddUsersInterestsTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,6 +31,18 @@ namespace FlameDating.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Chats", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Interests",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Interests", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -201,24 +213,6 @@ namespace FlameDating.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Interests",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Interests", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Interests_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Likes",
                 columns: table => new
                 {
@@ -285,6 +279,7 @@ namespace FlameDating.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsSeen = table.Column<bool>(type: "bit", nullable: false),
                     SenderUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RecieverUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ChatId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
@@ -311,27 +306,51 @@ namespace FlameDating.Infrastructure.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "UsersInterests",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    InterestId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsersInterests", x => new { x.UserId, x.InterestId });
+                    table.ForeignKey(
+                        name: "FK_UsersInterests_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UsersInterests_Interests_InterestId",
+                        column: x => x.InterestId,
+                        principalTable: "Interests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Interests",
-                columns: new[] { "Id", "Name", "UserId" },
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("05bc65cd-9894-41f0-9a74-b33d1f637fa1"), "Volleyball", null },
-                    { new Guid("0ae4b0ad-c36b-41bd-9e25-af6b7d206ded"), "Reading", null },
-                    { new Guid("12aa84d4-1fa9-4725-9acc-25e05b59ab38"), "Fishing", null },
-                    { new Guid("1594ef2b-dd88-4718-9b66-91d77ce2e38e"), "Skiing", null },
-                    { new Guid("199feb67-3bb8-467f-bdfd-11986cb997cd"), "Basketball", null },
-                    { new Guid("26b2ac03-9a93-45c0-8c93-2a97ab68d6db"), "Singing", null },
-                    { new Guid("2effc604-2024-4c03-b7c3-9376804afb70"), "Cycling", null },
-                    { new Guid("475b65f8-9bc3-4122-b477-824b936769a1"), "Hiking", null },
-                    { new Guid("5fb8e6f1-40b6-4d63-9b39-3f4fb86243c3"), "Running", null },
-                    { new Guid("6d9a0e5d-6c79-442c-b150-9ca1b9b9f80c"), "Swimming", null },
-                    { new Guid("a562cf54-0a25-4b82-91b8-318520bbf00c"), "Yoga", null },
-                    { new Guid("ad1a8096-0384-48eb-aef6-0dcc1d1f5ac6"), "Boxing", null },
-                    { new Guid("d0575979-2d72-417b-b3b7-a4add16c8b58"), "Handball", null },
-                    { new Guid("e6d97faf-14c7-45c5-bf28-b5dd6e791300"), "Martial Arts", null },
-                    { new Guid("eae75d50-9d66-4cfb-a5db-7876631c3efa"), "Football", null },
-                    { new Guid("f0a08a9f-7afc-42a2-ba5f-24aba7a4c16f"), "Cars", null }
+                    { new Guid("05bc65cd-9894-41f0-9a74-b33d1f637fa1"), "Volleyball" },
+                    { new Guid("0ae4b0ad-c36b-41bd-9e25-af6b7d206ded"), "Reading" },
+                    { new Guid("12aa84d4-1fa9-4725-9acc-25e05b59ab38"), "Fishing" },
+                    { new Guid("1594ef2b-dd88-4718-9b66-91d77ce2e38e"), "Skiing" },
+                    { new Guid("199feb67-3bb8-467f-bdfd-11986cb997cd"), "Basketball" },
+                    { new Guid("26b2ac03-9a93-45c0-8c93-2a97ab68d6db"), "Singing" },
+                    { new Guid("2effc604-2024-4c03-b7c3-9376804afb70"), "Cycling" },
+                    { new Guid("475b65f8-9bc3-4122-b477-824b936769a1"), "Hiking" },
+                    { new Guid("5fb8e6f1-40b6-4d63-9b39-3f4fb86243c3"), "Running" },
+                    { new Guid("6d9a0e5d-6c79-442c-b150-9ca1b9b9f80c"), "Swimming" },
+                    { new Guid("a562cf54-0a25-4b82-91b8-318520bbf00c"), "Yoga" },
+                    { new Guid("ad1a8096-0384-48eb-aef6-0dcc1d1f5ac6"), "Boxing" },
+                    { new Guid("d0575979-2d72-417b-b3b7-a4add16c8b58"), "Handball" },
+                    { new Guid("e6d97faf-14c7-45c5-bf28-b5dd6e791300"), "Martial Arts" },
+                    { new Guid("eae75d50-9d66-4cfb-a5db-7876631c3efa"), "Football" },
+                    { new Guid("f0a08a9f-7afc-42a2-ba5f-24aba7a4c16f"), "Cars" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -379,11 +398,6 @@ namespace FlameDating.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Interests_UserId",
-                table: "Interests",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Likes_LikedUserId",
                 table: "Likes",
                 column: "LikedUserId");
@@ -422,6 +436,11 @@ namespace FlameDating.Infrastructure.Migrations
                 name: "IX_Messages_SenderUserId",
                 table: "Messages",
                 column: "SenderUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UsersInterests_InterestId",
+                table: "UsersInterests",
+                column: "InterestId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -442,9 +461,6 @@ namespace FlameDating.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Interests");
-
-            migrationBuilder.DropTable(
                 name: "Likes");
 
             migrationBuilder.DropTable(
@@ -454,13 +470,19 @@ namespace FlameDating.Infrastructure.Migrations
                 name: "Messages");
 
             migrationBuilder.DropTable(
+                name: "UsersInterests");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Chats");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Chats");
+                name: "Interests");
 
             migrationBuilder.DropTable(
                 name: "Preferences");
