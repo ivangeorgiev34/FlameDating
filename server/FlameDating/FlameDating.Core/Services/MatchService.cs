@@ -38,7 +38,8 @@ namespace FlameDating.Core.Services
         public async Task<List<UserDto>> GetUserSuggestedMatchesByIdAsync(Guid userId)
         {
             var user = await repo.AllReadonly<User>()
-                .Include(u => u.Interests)
+                .Include(u => u.UsersInterests)
+                .ThenInclude(ui => ui.Interest)
                 .Include(u => u.Preference)
                 .Include(u => u.Likes)
                 .Include(u => u.Matches)
@@ -50,19 +51,20 @@ namespace FlameDating.Core.Services
             }
 
             var suggestedMatches = repo.AllReadonly<User>()
-                .Include(u => u.Interests)
+                .Include(u => u.UsersInterests)
+                .ThenInclude(ui => ui.Interest)
                 .Include(u => u.Preference)
                 .Include(u => u.Likes)
-                .Where(u => u.Preference.Gender == user.Preference.Gender
+                .Where(u => u.Gender == user.Preference.Gender
                         && u.Id != user.Id)
                 .AsEnumerable()
                 .Where(u => Math.Floor(GeoCalculator.GetDistance(decimal.ToDouble(user.LocationLatitude),
                 decimal.ToDouble(user.LocationLongitude), decimal.ToDouble(u.LocationLatitude),
                 decimal.ToDouble(u.LocationLongitude), 1, DistanceUnit.Kilometers))
                 <= user.Preference.MaximumDistance
-                && user.Likes.Any(l => DateTime.Now.DayOfYear - l.LikeDate.DayOfYear >= 30
-                        && (l.LikerUserId == u.Id || l.LikedUserId == u.Id)) == false
-                && user.Interests.Count(ui => u.Interests.Any(i => i.Name == ui.Name)) >= 2)
+                        && user.Likes.Any(l => DateTime.Now.DayOfYear - l.LikeDate.DayOfYear >= 30
+                            && (l.LikerUserId == u.Id || l.LikedUserId == u.Id)) == false
+                        && user.UsersInterests.Count(ui => u.UsersInterests.Any(i => i.Interest.Name == ui.Interest.Name)) >= 2)
                 .Select(u => new UserDto()
                 {
                     Id = u.Id.ToString(),
