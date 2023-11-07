@@ -10,7 +10,7 @@ namespace FlameDating.Infrastructure.Models
     {
         public User()
         {
-            this.Interests = new List<Interest>();
+            this.UsersInterests = new List<UserInterest>();
             this.Likes = new List<Like>();
             this.Matches = new List<Match>();
         }
@@ -69,7 +69,7 @@ namespace FlameDating.Infrastructure.Models
         public Guid PreferenceId { get; set; }
         public Preference Preference { get; set; } = null!;
 
-        public ICollection<Interest> Interests { get; set; } = null!;
+        public ICollection<UserInterest> UsersInterests { get; set; } = null!;
 
         public ICollection<Like> Likes { get; set; } = null!;
 
