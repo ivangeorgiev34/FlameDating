@@ -56,6 +56,41 @@ namespace FlameDating.Core.Services
             await repo.SaveChangesAsync();
         }
 
+        public async Task EditInterestsByIdsAsync(Guid userId, List<string> interestsIds)
+        {
+            var currentUserInterestsPairs = await repo.All<UserInterest>()
+                .Where(ui => ui.UserId == userId)
+                .ToListAsync();
+
+            repo.DeleteRange(currentUserInterestsPairs);
+
+            var newUserInterestsPairs = new List<UserInterest>();
+
+            foreach (var uniqueInterestId in interestsIds)
+            {
+                var interestId = Guid.Parse(uniqueInterestId);
+
+                var interestExists = await repo.AllReadonly<Interest>()
+                .AnyAsync(i => i.Id == interestId);
+
+                if (interestExists == false)
+                {
+                    throw new NullReferenceException("Interest does not exist");
+                }
+
+                var userInterestPair = new UserInterest()
+                {
+                    UserId = userId,
+                    InterestId = interestId
+                };
+
+                newUserInterestsPairs.Add(userInterestPair);
+            }
+
+            await repo.AddRangeAsync(newUserInterestsPairs);
+            await repo.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<InterestDto>> GetAllInterestsAsync()
         {
             var interests = await repo.AllReadonly<Interest>()
