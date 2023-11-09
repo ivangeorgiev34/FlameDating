@@ -83,6 +83,14 @@ namespace FlameDating.Core.Services
             await repo.SaveChangesAsync();
         }
 
+        public async Task<bool> UserExistsByIdAsync(Guid userId)
+        {
+            var userExists = await repo.AllReadonly<User>()
+                .AnyAsync(u => u.Id == userId);
+
+            return userExists;
+        }
+
         public async Task<bool> UserHasPreferenceByIdAsync(Guid userId, Guid preferenceId)
         {
             var userHasPreference = await repo.AllReadonly<User>()
