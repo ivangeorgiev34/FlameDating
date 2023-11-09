@@ -11,5 +11,7 @@ namespace FlameDating.Core.Contracts
         Task EditProfileAsync(User user, EditProfileDto editProfileDto);
 
         Task<bool> UserHasPreferenceByIdAsync(Guid userId, Guid preferenceId);
+
+        Task<bool> UserExistsByIdAsync(Guid userId);
     }
 }
