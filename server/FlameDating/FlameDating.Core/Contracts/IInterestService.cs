@@ -9,5 +9,7 @@ namespace FlameDating.Core.Contracts
         Task<IEnumerable<InterestDto>> GetAllInterestsAsync();
 
         Task<IEnumerable<InterestDto>> GetUsersInterestsByIdAsync(Guid userId);
+
+        Task EditInterestsByIdsAsync(Guid userId, List<string> interestsIds);
     }
 }
