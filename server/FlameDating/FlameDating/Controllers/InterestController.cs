@@ -73,5 +73,22 @@ namespace FlameDating.Controllers
                 });
             }
         }
+
+        [HttpGet]
+        [Route("interests")]
+        public async Task<IActionResult> GetInterests()
+        {
+            var interests = await interestService.GetAllInterestsAsync();
+
+            return StatusCode(StatusCodes.Status200OK, new Response()
+            {
+                Status = ApplicationConstants.Response.RESPONSE_STATUS_SUCCESS,
+                Message = "Interests retrieved successfully",
+                Content = new
+                {
+                    Interests = interests
+                }
+            });
+        }
     }
 }
