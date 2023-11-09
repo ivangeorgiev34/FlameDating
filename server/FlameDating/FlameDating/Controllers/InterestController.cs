@@ -121,5 +121,55 @@ namespace FlameDating.Controllers
                 }
             });
         }
+
+        [HttpPut]
+        [Route("edit")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> EditUsersInterests(EditInterestsDto editInterestsDto)
+        {
+            var userId = Guid.Parse(GetUserId(this.HttpContext)!);
+
+            var doesInvalidIdExist = editInterestsDto.InterestsIds.Any(i => Guid.TryParse(i, out Guid result) == false);
+
+            if (doesInvalidIdExist == true)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new Response()
+                {
+                    Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
+                    Message = "Invalid interest id"
+                });
+            }
+
+            var uniqueInterestsIds = editInterestsDto.InterestsIds.Distinct().ToList();
+
+            if (uniqueInterestsIds.Count < 2)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new Response()
+                {
+                    Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
+                    Message = "You must submit at least 2 interests"
+                });
+            }
+
+            try
+            {
+                await interestService.EditInterestsByIdsAsync(userId, uniqueInterestsIds);
+
+                return StatusCode(StatusCodes.Status201Created, new Response()
+                {
+                    Status = ApplicationConstants.Response.RESPONSE_STATUS_SUCCESS,
+                    Message = "Edited interests successfully"
+                });
+
+            }
+            catch (NullReferenceException nre)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new Response()
+                {
+                    Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
+                    Message = nre.Message
+                });
+            }
+        }
     }
 }
