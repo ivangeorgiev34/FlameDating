@@ -40,7 +40,7 @@ namespace FlameDating.Controllers
                 });
             }
 
-            if (createInterestsDto.InterestsIds.Count < 2)
+            if (createInterestsDto.InterestsIds.Distinct().ToList().Count < 2)
             {
                 return StatusCode(StatusCodes.Status400BadRequest, new Response()
                 {
