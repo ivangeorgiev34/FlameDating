@@ -13,10 +13,13 @@ namespace FlameDating.Controllers
     public class InterestController : BaseController
     {
         private readonly IInterestService interestService;
+        private readonly IAccountService accountService;
 
-        public InterestController(IInterestService _interestService)
+        public InterestController(IInterestService _interestService,
+            IAccountService _accountService)
         {
             this.interestService = _interestService;
+            this.accountService = _accountService;
         }
 
         [HttpPost]
@@ -84,6 +87,34 @@ namespace FlameDating.Controllers
             {
                 Status = ApplicationConstants.Response.RESPONSE_STATUS_SUCCESS,
                 Message = "Interests retrieved successfully",
+                Content = new
+                {
+                    Interests = interests
+                }
+            });
+        }
+
+        [HttpGet]
+        [Route("interests/{userId}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> GetUsersInterests(string userId)
+        {
+            if (IsIdValidGuidAndNotNull(userId) == false
+                || await accountService.UserExistsByIdAsync(Guid.Parse(userId)) == false)
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, new Response()
+                {
+                    Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
+                    Message = "User does not exist"
+                });
+            }
+
+            var interests = await interestService.GetUsersInterestsByIdAsync(Guid.Parse(userId));
+
+            return StatusCode(StatusCodes.Status200OK, new Response()
+            {
+                Status = ApplicationConstants.Response.RESPONSE_STATUS_SUCCESS,
+                Message = "Users interests retrieved successfully",
                 Content = new
                 {
                     Interests = interests
