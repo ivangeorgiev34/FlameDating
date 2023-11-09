@@ -69,5 +69,21 @@ namespace FlameDating.Core.Services
 
             return interests;
         }
+
+        public async Task<IEnumerable<InterestDto>> GetUsersInterestsByIdAsync(Guid userId)
+        {
+            var interests = await repo.AllReadonly<UserInterest>()
+                .Include(ui => ui.Interest)
+                .Where(ui => ui.UserId == userId)
+                .Select(i => new InterestDto()
+                {
+                    Id = i.InterestId.ToString(),
+                    Name = i.Interest.Name
+                })
+                .OrderBy(i => i.Name)
+                .ToListAsync();
+
+            return interests;
+        }
     }
 }
