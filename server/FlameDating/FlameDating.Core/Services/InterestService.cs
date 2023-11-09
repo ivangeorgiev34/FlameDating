@@ -1,5 +1,6 @@
 ﻿using FlameDating.Core.Contracts;
 using FlameDating.Infrastructure.Common;
+using FlameDating.Infrastructure.Dtos.Interest;
 using FlameDating.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -53,6 +54,20 @@ namespace FlameDating.Core.Services
             await repo.AddRangeAsync(userInterestPairs);
 
             await repo.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<InterestDto>> GetAllInterestsAsync()
+        {
+            var interests = await repo.AllReadonly<Interest>()
+                .Select(i => new InterestDto()
+                {
+                    Id = i.Id.ToString(),
+                    Name = i.Name
+                })
+                .OrderBy(i => i.Name)
+                .ToListAsync();
+
+            return interests;
         }
     }
 }
