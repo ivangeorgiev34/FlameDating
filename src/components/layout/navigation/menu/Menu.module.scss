@@ -1,0 +1,25 @@
+@use "../../../assets/globalVariables.scss" as globalVariables;
+@import url(https://use.fontawesome.com/releases/v6.4.2/css/all.css);
+
+.menu {
+  background-color: globalVariables.$mainRedColor;
+  width: 20%;
+  height: 100%;
+  padding: 20px;
+
+  .menuItems {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 20px;
+  }
+
+  .menuItem {
+    list-style-type: none;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+  }
+}
