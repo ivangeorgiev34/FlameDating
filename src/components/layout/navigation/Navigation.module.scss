@@ -1,0 +1,37 @@
+@use "../../assets/globalVariables.scss" as globalVariables;
+@import url(https://use.fontawesome.com/releases/v6.4.2/css/all.css);
+
+.navBar {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #ff498f;
+  .menuBtn {
+    all: unset;
+    color: white;
+    font-size: 24px;
+  }
+
+  .btnsContainer {
+    display: flex;
+    flex-direction: row nowrap;
+    column-gap: 15px;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+
+    a {
+      border-radius: 20px;
+      border: 1px solid white;
+      padding: 10px 20px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: globalVariables.$btnHoverColor;
+        transition: background-color 0.5s ease-out;
+      }
+    }
+  }
+}
