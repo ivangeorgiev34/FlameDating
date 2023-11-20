@@ -42,8 +42,12 @@ export const Navigation: React.FC = () => {
         )}
       </div>
       <div className={styles.btnsContainer}>
-        <a>Login</a>
-        <a>Register</a>
+        <Link to={"/login"} className={styles.loginBtn}>
+          Login
+        </Link>
+        <Link to={"/register"} className={styles.registerBtn}>
+          Register
+        </Link>
       </div>
     </nav>
   );
