@@ -1,3 +1,7 @@
 @mixin btnHoverAnimation {
   transition: background-color 0.7s ease-out;
 }
+
+@mixin cardBoxShadow {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
