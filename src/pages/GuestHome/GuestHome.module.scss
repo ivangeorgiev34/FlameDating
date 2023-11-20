@@ -90,6 +90,7 @@ h2 {
       border: 1px solid globalVariables.$boxBorderGrey;
       border-radius: 10px;
       background-color: globalVariables.$cardBackgroundColor;
+      @include globalMixins.cardBoxShadow;
 
       hr {
         margin: 0;
