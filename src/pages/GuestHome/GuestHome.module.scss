@@ -1,0 +1,107 @@
+@use "../../assets/globalVariables.scss" as globalVariables;
+@use "../../assets/globalMixins.scss" as globalMixins;
+
+h1,
+h3,
+p,
+h2 {
+  margin: 0;
+  text-align: center;
+}
+
+.imageContainer {
+  background: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)),
+    url("https://c0.wallpaperflare.com/preview/774/37/112/communication-conversation-phone-screen.jpg")
+      no-repeat;
+  background-size: 100%;
+  padding: 250px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  color: white;
+}
+
+.joinUsContainer {
+  h1 {
+    font-size: 32px;
+  }
+
+  display: flex;
+  flex-flow: column wrap;
+  row-gap: 25px;
+  padding: 50px 100px;
+  background-color: rgba(0, 0, 0, 0.57);
+  border-radius: 10px;
+  align-items: center;
+  width: 50%;
+
+  .btnsContainer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 10px;
+    .registerBtn,
+    .loginBtn {
+      all: unset;
+      border: 1px solid black;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+
+    .registerBtn {
+      background-color: globalVariables.$mainRedColor;
+      color: white;
+
+      &:hover {
+        background-color: globalVariables.$btnHoverColor;
+        @include globalMixins.btnHoverAnimation;
+      }
+    }
+
+    .loginBtn {
+      background-color: white;
+      color: black;
+
+      &:hover {
+        background-color: globalVariables.$whiteBtnHoverColor;
+        @include globalMixins.btnHoverAnimation;
+      }
+    }
+  }
+}
+
+.testiomanialsWrapper {
+  padding: 40px;
+  .testiomanials {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 10px;
+    justify-content: space-evenly;
+    padding: 40px;
+    .testiomanialCard {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      row-gap: 10px;
+      width: 20%;
+      text-align: center;
+      padding: 40px;
+      border: 1px solid globalVariables.$boxBorderGrey;
+      border-radius: 10px;
+      background-color: globalVariables.$cardBackgroundColor;
+
+      hr {
+        margin: 0;
+        background-color: globalVariables.$boxBorderGrey;
+        width: 100%;
+      }
+
+      .testiomanialImage {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+}
