@@ -4,9 +4,11 @@ import { animated } from "@react-spring/web";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import { makeMenuInvisible, makeMenuVisible } from "../../../store/menu";
 import { Menu } from "./menu/Menu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../../store/auth";
 
 export const Navigation: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { isVisible } = useAppSelector((state) => state.menu);
   const { token } = useAppSelector((state) => state.auth);
@@ -42,12 +44,24 @@ export const Navigation: React.FC = () => {
         )}
       </div>
       <div className={styles.btnsContainer}>
-        <Link to={"/login"} className={styles.loginBtn}>
-          Login
-        </Link>
-        <Link to={"/register"} className={styles.registerBtn}>
-          Register
-        </Link>
+        {token === null ? (
+          <>
+            <Link to={"/login"} className={styles.loginBtn}>
+              Login
+            </Link>
+            <Link to={"/register"} className={styles.registerBtn}>
+              Register
+            </Link>
+          </>
+        ) : (
+          <Link
+            className={styles.logoutBtn}
+            onClick={() => dispatch(logout())}
+            to={"/"}
+          >
+            Logout
+          </Link>
+        )}
       </div>
     </nav>
   );
