@@ -52,6 +52,7 @@ h2 {
     .registerBtn {
       background-color: globalVariables.$mainRedColor;
       color: white;
+      cursor: pointer;
 
       &:hover {
         background-color: globalVariables.$btnHoverColor;
@@ -62,6 +63,7 @@ h2 {
     .loginBtn {
       background-color: white;
       color: black;
+      cursor: pointer;
 
       &:hover {
         background-color: globalVariables.$whiteBtnHoverColor;
