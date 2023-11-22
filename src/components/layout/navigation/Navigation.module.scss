@@ -44,7 +44,9 @@
   font-weight: bold;
 
   .loginBtn,
-  .registerBtn {
+  .registerBtn,
+  .logoutBtn {
+    all: unset;
     color: white;
     text-decoration: none;
     border-radius: 20px;
