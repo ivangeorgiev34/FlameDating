@@ -1,0 +1,84 @@
+@use "../../assets/globalMixins.scss" as globalMixins;
+@use "../../assets/globalVariables.scss" as globalVariables;
+
+.loginCardWrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 0px;
+
+  .loginCard {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: 25%;
+    row-gap: 20px;
+    padding: 40px 30px;
+    @include globalMixins.blackBorder;
+    border-color: globalVariables.$boxBorderGrey;
+    border-radius: 10px;
+    background-color: globalVariables.$cardBackgroundColor;
+
+    .error {
+      color: red;
+      text-align: center;
+    }
+
+    .errorsContainer {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      text-align: center;
+    }
+
+    .emailContainer,
+    .passwordContainer {
+      display: flex;
+      flex-flow: column nowrap;
+      row-gap: 5px;
+      width: 65%;
+
+      input {
+        height: 25px;
+        border: 1px solid globalVariables.$boxBorderGrey;
+
+        &:focus {
+          @include globalMixins.inputBoxShadow;
+          outline: none;
+        }
+      }
+    }
+
+    .registerLink {
+      color: globalVariables.$boxBorderGrey;
+    }
+
+    .loginBtn {
+      all: unset;
+      background-color: rgb(0, 175, 0);
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      color: white;
+      @include globalMixins.blackBorder;
+
+      &:enabled {
+        &:hover {
+          background-color: rgb(0, 214, 0);
+          @include globalMixins.btnHoverAnimation;
+        }
+      }
+
+      &:disabled {
+        opacity: 0.4;
+      }
+    }
+  }
+}
+
+hr {
+  margin: 0;
+  color: globalVariables.$boxBorderGrey;
+  width: 80%;
+}
