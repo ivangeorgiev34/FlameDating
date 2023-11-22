@@ -3,6 +3,7 @@ import styles from "../GuestHome/GuestHome.module.scss";
 import { useInView, useSpring } from "@react-spring/web";
 import { Footer } from "../../components/layout/footer/Footer";
 import { animated } from "@react-spring/web";
+import { Link } from "react-router-dom";
 
 export const GuestHome: React.FC = () => {
   const [ref, inView] = useInView();
@@ -28,8 +29,12 @@ export const GuestHome: React.FC = () => {
             loggin in if you already have an account!
           </p>
           <div className={styles.btnsContainer}>
-            <button className={styles.registerBtn}>Register here!</button>
-            <button className={styles.loginBtn}>Log in!</button>
+            <Link to={"/register"} className={styles.registerBtn}>
+              Register here!
+            </Link>
+            <Link to={"/login"} className={styles.loginBtn}>
+              Log in!
+            </Link>
           </div>
         </section>
       </div>
