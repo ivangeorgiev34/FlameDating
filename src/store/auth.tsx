@@ -1,27 +1,30 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import IAuthState from "../interfaces/auth/IAuthState";
 
-const initialState: IAuthState = {
-  id: null,
-  firstName: null,
-  middleName: null,
-  lastName: null,
-  age: null,
-  email: null,
-  username: null,
-  gender: null,
-  biography: null,
-  school: null,
-  job: null,
-  height: null,
-  firstProfilePicture: null,
-  secondProfilePicture: null,
-  thirdProfilePicture: null,
-  fourthProfilePicture: null,
-  fifthProfilePicture: null,
-  token: null,
-  expires: null,
-};
+export const initialState: IAuthState =
+  localStorage.getItem("auth") === null
+    ? {
+        id: null,
+        firstName: null,
+        middleName: null,
+        lastName: null,
+        age: null,
+        email: null,
+        username: null,
+        gender: null,
+        biography: null,
+        school: null,
+        job: null,
+        height: null,
+        firstProfilePicture: null,
+        secondProfilePicture: null,
+        thirdProfilePicture: null,
+        fourthProfilePicture: null,
+        fifthProfilePicture: null,
+        token: null,
+        expires: null,
+      }
+    : JSON.parse(localStorage.getItem("auth")!);
 
 const authSlice = createSlice({
   name: "auth",
