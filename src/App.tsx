@@ -10,6 +10,7 @@ import { Login } from "./pages/Login/Login";
 import { PublicRouteGuard } from "./guards/PublicRouteGuard/PublicRouteGuard";
 import { PrivateRouteGuard } from "./guards/PrivateRouteGuard/PrivateRouteGuard";
 import { Matches } from "./pages/Matches/Matches";
+import { Unauthorized } from "./pages/Unauthorized/Unauthorized";
 
 function App() {
   const { isVisible } = useAppSelector((state) => state.menu);
@@ -23,6 +24,7 @@ function App() {
         {isVisible === true ? <Menu /> : <></>}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
           <Route element={<PublicRouteGuard />}>
             <Route path="/login" element={<Login />} />
           </Route>
