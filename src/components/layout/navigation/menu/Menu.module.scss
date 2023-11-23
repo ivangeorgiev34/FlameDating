@@ -19,9 +19,12 @@
 
   .menuItem {
     list-style-type: none;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    font-size: 24px;
+
+    .menuBtn {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-size: 24px;
+    }
   }
 }
