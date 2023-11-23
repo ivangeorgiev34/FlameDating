@@ -53,7 +53,7 @@ export const Menu: React.FC = () => {
             to={"/matches"}
             onClick={() => dispatch(makeMenuInvisible())}
           >
-            Matches
+            Explore
           </Link>
         </li>
         <li className={styles.menuItem}>
