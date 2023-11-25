@@ -83,30 +83,36 @@ export const Login: React.FC = () => {
         <hr />
         <div className={styles.emailContainer}>
           <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email..."
-            value={formValues.email}
-            onChange={(e) => onFormChange(e)}
-            onBlur={(e) =>
-              onFormErrorChange(e, emailValidation(formValues.email))
-            }
-          />
+          <div className={styles.emailInputContainer}>
+            <i className="fa-solid fa-envelope"></i>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email..."
+              value={formValues.email}
+              onChange={(e) => onFormChange(e)}
+              onBlur={(e) =>
+                onFormErrorChange(e, emailValidation(formValues.email))
+              }
+            />
+          </div>
           <span className={styles.error}>{formErrors.email}</span>
         </div>
         <div className={styles.passwordContainer}>
           <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Password..."
-            value={formValues.password}
-            onChange={(e) => onFormChange(e)}
-            onBlur={(e) =>
-              onFormErrorChange(e, passwordValidation(formValues.password))
-            }
-          />
+          <div className={styles.passwordInputContainer}>
+            <i className="fa-solid fa-lock"></i>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password..."
+              value={formValues.password}
+              onChange={(e) => onFormChange(e)}
+              onBlur={(e) =>
+                onFormErrorChange(e, passwordValidation(formValues.password))
+              }
+            />
+          </div>
           <span className={styles.error}>{formErrors.password}</span>
         </div>
         <ul className={styles.errorsContainer}></ul>
