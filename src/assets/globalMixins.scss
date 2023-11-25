@@ -13,3 +13,16 @@
 @mixin inputBoxShadow {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+
+@mixin inputFocusAndBlur {
+  &:focus {
+    @include inputBoxShadow;
+    outline: none;
+    border-color: #85b7d9;
+    transition: color 0.1s, border-color 0.1s, box-shadow 0.1s ease;
+  }
+
+  &:not(:focus) {
+    opacity: 0.5;
+  }
+}
