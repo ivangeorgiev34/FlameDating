@@ -32,6 +32,18 @@
       text-align: center;
     }
 
+    .emailInputContainer,
+    .passwordInputContainer {
+      position: relative;
+      i {
+        pointer-events: none;
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        transform: translate(-50%, -50%);
+      }
+    }
+
     .emailContainer,
     .passwordContainer {
       display: flex;
@@ -40,13 +52,12 @@
       width: 65%;
 
       input {
-        height: 25px;
+        padding: 10px;
+        padding-left: 30px;
         border: 1px solid globalVariables.$boxBorderGrey;
+        border-radius: 5px;
 
-        &:focus {
-          @include globalMixins.inputBoxShadow;
-          outline: none;
-        }
+        @include globalMixins.inputFocus;
       }
     }
 
