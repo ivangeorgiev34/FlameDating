@@ -93,6 +93,7 @@ namespace FlameDating.Core.Services
                         ? Convert.ToBase64String(u.FifthProfilePicture)
                         : null
                 })
+                .Take(5)
                 .ToList();
 
             return suggestedMatches;
