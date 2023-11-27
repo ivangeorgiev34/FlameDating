@@ -149,7 +149,7 @@ namespace FlameDating.Controllers
             return StatusCode(StatusCodes.Status404NotFound, new Response
             {
                 Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
-                Message = "Wrong credentials"
+                Message = "Wrong credentials, check your password and try again!"
             });
         }
 
