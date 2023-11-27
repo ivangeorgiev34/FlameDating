@@ -28,6 +28,8 @@ namespace FlameDating.Infrastructure.Dtos.Account
 
         public decimal LocationLongitude { get; set; }
 
+        public double DistanceFromUser { get; set; }
+
         public string FirstProfilePicture { get; set; } = null!;
 
         public string? SecondProfilePicture { get; set; }
