@@ -109,7 +109,7 @@ namespace FlameDating.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, new Response()
                 {
                     Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
-                    Message = "User doesn't exist"
+                    Message = "User with such email doesn't exist"
                 });
             }
 
