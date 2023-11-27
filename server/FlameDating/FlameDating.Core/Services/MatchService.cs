@@ -79,6 +79,9 @@ namespace FlameDating.Core.Services
                     LocationLatitude = u.LocationLatitude,
                     LocationLongitude = u.LocationLongitude,
                     School = u.School,
+                    DistanceFromUser = GeoCalculator.GetDistance(decimal.ToDouble(user.LocationLatitude),
+                        decimal.ToDouble(user.LocationLongitude), decimal.ToDouble(u.LocationLatitude),
+                        decimal.ToDouble(u.LocationLongitude), 1, DistanceUnit.Kilometers),
                     FirstProfilePicture = Convert.ToBase64String(u.FirstProfilePicture),
                     SecondProfilePicture = u.SecondProfilePicture != null
                         ? Convert.ToBase64String(u.SecondProfilePicture)
