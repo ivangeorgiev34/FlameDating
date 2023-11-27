@@ -106,7 +106,7 @@ namespace FlameDating.Controllers
 
             if (user == null)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, new Response()
+                return StatusCode(StatusCodes.Status404NotFound, new Response()
                 {
                     Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
                     Message = "User with such email doesn't exist"
@@ -146,7 +146,7 @@ namespace FlameDating.Controllers
                 });
             }
 
-            return StatusCode(StatusCodes.Status404NotFound, new Response
+            return StatusCode(StatusCodes.Status400BadRequest, new Response
             {
                 Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
                 Message = "Wrong credentials, check your password and try again!"
