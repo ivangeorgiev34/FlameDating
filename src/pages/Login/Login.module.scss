@@ -57,7 +57,7 @@
         border: 1px solid globalVariables.$boxBorderGrey;
         border-radius: 5px;
 
-        @include globalMixins.inputFocus;
+        @include globalMixins.inputFocusAndBlur;
       }
     }
 
