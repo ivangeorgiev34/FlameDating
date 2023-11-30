@@ -12,6 +12,7 @@ import { userLogin } from "../../services/authenticationService/authenticationSe
 import { useAppDispatch } from "../../hooks/reduxHooks";
 import { toggleLoaderOff, toggleLoaderOn } from "../../store/loader";
 import { login } from "../../store/auth";
+import { error } from "console";
 
 export const Login: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -36,13 +37,14 @@ export const Login: React.FC = () => {
 
     e.preventDefault();
 
+    setErrors([]);
+
     try {
       const response = await userLogin(formValues.email, formValues.password);
 
       if (response.status === "Error") {
         setErrors((errors) => [...errors, response.message]);
       } else if (response.status === "Success") {
-        console.log(response);
         dispatch(
           login({
             id: response.content.user.id,
@@ -115,7 +117,15 @@ export const Login: React.FC = () => {
           </div>
           <span className={styles.error}>{formErrors.password}</span>
         </div>
-        <ul className={styles.errorsContainer}></ul>
+        <ul className={styles.errorsContainer}>
+          {errors.map((errorMessage, index) => {
+            return (
+              <li key={index} className={styles.error}>
+                {errorMessage}
+              </li>
+            );
+          })}
+        </ul>
         <span className={styles.registerLink}>
           Don't have an account?
           <Link to={"/register"}>Click here to register!</Link>
