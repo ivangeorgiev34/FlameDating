@@ -9,6 +9,7 @@ export default interface ISuggestedMatch {
   gender: 0 | 1;
   biography: string | null;
   school: string | null;
+  distanceFromUser: number | null;
   job: string | null;
   height: number;
   firstProfilePicture: string;
