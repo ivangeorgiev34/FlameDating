@@ -1,0 +1,52 @@
+@use "../../assets/globalVariables.scss" as globalVariables;
+
+.card {
+  background-size: 100% 100%;
+  position: fixed;
+  top: 60%;
+  left: 50%;
+  width: 20%;
+  height: 60%;
+  padding: 30px;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: flex-start;
+  row-gap: 10px;
+
+  .firstName {
+    color: globalVariables.$cardBackgroundColor;
+  }
+
+  .pictureSliders {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    column-gap: 5px;
+    justify-content: space-around;
+    width: 100%;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .activeSlider,
+    .inactiveSlider {
+      border-radius: 5px;
+      height: 10px;
+      width: 20%;
+    }
+
+    .activeSlider {
+      background-color: rgba(255, 255, 255, 0.846);
+    }
+
+    .inactiveSlider {
+      background-color: rgba(34, 34, 34, 0.846);
+    }
+  }
+}
