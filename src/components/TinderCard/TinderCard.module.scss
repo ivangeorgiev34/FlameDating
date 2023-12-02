@@ -42,11 +42,52 @@
     }
 
     .activeSlider {
-      background-color: rgba(255, 255, 255, 0.846);
+      background-color: rgba(255, 255, 255, 0.88);
     }
 
     .inactiveSlider {
-      background-color: rgba(34, 34, 34, 0.846);
+      background-color: rgba(34, 34, 34, 0.88);
     }
+  }
+
+  .previousPictureBtn,
+  .nextPictureBtn {
+    all: unset;
+    position: absolute;
+    top: 50%;
+
+    i {
+      color: white;
+    }
+
+    &:disabled {
+      i {
+        opacity: 0.3;
+      }
+    }
+  }
+
+  .previousPictureBtn {
+    left: 5%;
+  }
+
+  .nextPictureBtn {
+    right: 5%;
+  }
+
+  .firstNameAndDistanceContainer {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    row-gap: 5px;
+    color: white;
+  }
+
+  .matchInformationWrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
 }
