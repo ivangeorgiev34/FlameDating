@@ -109,29 +109,31 @@ export const TinderCard: React.FC<ITinderCardProps> = (
     >
       <ul className={styles.pictureSliders}>{generateSliders()}</ul>
       <button
+        className={styles.previousPictureBtn}
         onClick={() => setCurrentProfilePictureNumber((state) => state - 1)}
         disabled={currentProfilePictureNumber === 1}
       >
-        <i className="fa-solid fa-less-than fa-lg"></i>
+        <i className="fa-solid fa-less-than fa-xl"></i>
       </button>
       <button
+        className={styles.nextPictureBtn}
         onClick={() => setCurrentProfilePictureNumber((state) => state + 1)}
         disabled={
           currentProfilePictureNumber === 5 ||
           currentProfilePictureNumber === totalProfilePicturesNumber
         }
       >
-        <i className="fa-solid fa-greater-than fa-lg"></i>
+        <i className="fa-solid fa-greater-than fa-xl"></i>
       </button>
-      <div>
-        <div>
+      <div className={styles.matchInformationWrapper}>
+        <div className={styles.firstNameAndDistanceContainer}>
           <h1 className={styles.firstName}>
             {props.firstName} {props.age}
           </h1>
           <p>{props.distanceFromUser} km away</p>
         </div>
         <button>
-          <i className="fa-solid fa-circle-info"></i>
+          <i className="fa-solid fa-circle-info fa-xl"></i>
         </button>
       </div>
     </div>
