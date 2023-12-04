@@ -109,6 +109,17 @@ namespace FlameDating.Controllers
                 });
             }
 
+            var userIdFromToken = GetUserId(this.HttpContext);
+
+            if (userId != userIdFromToken)
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, new Response()
+                {
+                    Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
+                    Message = "You can only get your own interests"
+                });
+            }
+
             var interests = await interestService.GetUsersInterestsByIdAsync(Guid.Parse(userId));
 
             return StatusCode(StatusCodes.Status200OK, new Response()
