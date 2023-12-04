@@ -6,6 +6,7 @@ import { makeMenuInvisible, makeMenuVisible } from "../../../store/menu";
 import { Menu } from "./menu/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../../store/auth";
+import { removeInterests } from "../../../store/interests";
 
 export const Navigation: React.FC = () => {
   const navigate = useNavigate();
@@ -56,7 +57,10 @@ export const Navigation: React.FC = () => {
         ) : (
           <Link
             className={styles.logoutBtn}
-            onClick={() => dispatch(logout())}
+            onClick={() => {
+              dispatch(logout());
+              dispatch(removeInterests());
+            }}
             to={"/"}
           >
             Logout
