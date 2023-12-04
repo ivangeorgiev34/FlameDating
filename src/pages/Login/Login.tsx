@@ -13,6 +13,8 @@ import { useAppDispatch } from "../../hooks/reduxHooks";
 import { toggleLoaderOff, toggleLoaderOn } from "../../store/loader";
 import { login } from "../../store/auth";
 import { error } from "console";
+import { addInterests } from "../../store/interests";
+import { getUsersInterest } from "../../services/interestService/interestService";
 
 export const Login: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -40,34 +42,50 @@ export const Login: React.FC = () => {
     setErrors([]);
 
     try {
-      const response = await userLogin(formValues.email, formValues.password);
+      const loginResponse = await userLogin(
+        formValues.email,
+        formValues.password
+      );
 
-      if (response.status === "Error") {
-        setErrors((errors) => [...errors, response.message]);
-      } else if (response.status === "Success") {
+      if (loginResponse.status === "Error") {
+        setErrors((errors) => [...errors, loginResponse.message]);
+      } else if (loginResponse.status === "Success") {
         dispatch(
           login({
-            id: response.content.user.id,
-            firstName: response.content.user.firstName,
-            middleName: response.content.user.middleName,
-            lastName: response.content.user.lastName,
-            age: response.content.user.age,
-            email: response.content.user.email,
-            username: response.content.user.username,
-            gender: response.content.user.gender,
-            biography: response.content.user.biography,
-            school: response.content.user.school,
-            job: response.content.user.job,
-            height: response.content.user.height,
-            firstProfilePicture: response.content.user.firstProfilePicture,
-            secondProfilePicture: response.content.user.secondProfilePicture,
-            thirdProfilePicture: response.content.user.thirdProfilePicture,
-            fourthProfilePicture: response.content.user.fourthProfilePicture,
-            fifthProfilePicture: response.content.user.fifthProfilePicture,
-            token: response.content.token,
-            expires: response.content.expires,
+            id: loginResponse.content.user.id,
+            firstName: loginResponse.content.user.firstName,
+            middleName: loginResponse.content.user.middleName,
+            lastName: loginResponse.content.user.lastName,
+            age: loginResponse.content.user.age,
+            email: loginResponse.content.user.email,
+            username: loginResponse.content.user.username,
+            gender: loginResponse.content.user.gender,
+            biography: loginResponse.content.user.biography,
+            school: loginResponse.content.user.school,
+            job: loginResponse.content.user.job,
+            height: loginResponse.content.user.height,
+            firstProfilePicture: loginResponse.content.user.firstProfilePicture,
+            secondProfilePicture:
+              loginResponse.content.user.secondProfilePicture,
+            thirdProfilePicture: loginResponse.content.user.thirdProfilePicture,
+            fourthProfilePicture:
+              loginResponse.content.user.fourthProfilePicture,
+            fifthProfilePicture: loginResponse.content.user.fifthProfilePicture,
+            token: loginResponse.content.token,
+            expires: loginResponse.content.expires,
           })
         );
+
+        const getUsersInterestResponse = await getUsersInterest(
+          loginResponse.content.user.id,
+          loginResponse.content.token
+        );
+
+        if (getUsersInterestResponse.status === "Error") {
+          setErrors((errors) => [...errors, getUsersInterestResponse.message]);
+        } else if (getUsersInterestResponse.status === "Success") {
+          dispatch(addInterests(getUsersInterestResponse.content.interests));
+        }
 
         navigate("/");
       }
