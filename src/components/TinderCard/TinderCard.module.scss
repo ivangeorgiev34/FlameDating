@@ -1,78 +1,115 @@
 @use "../../assets/globalVariables.scss" as globalVariables;
 
-.card {
-  background-size: 100% 100%;
+.matchWrapper {
   position: fixed;
-  top: 60%;
+  top: 55%;
   left: 50%;
-  width: 20%;
-  height: 60%;
-  padding: 30px;
+  width: 25%;
+  height: 65%;
   transform: translate(-50%, -50%);
-  cursor: pointer;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: flex-end;
-  align-items: flex-start;
-  row-gap: 10px;
+  overflow-y: scroll;
+  scrollbar-width: none;
 
-  .firstName {
-    color: globalVariables.$cardBackgroundColor;
+  &::-webkit-scrollbar {
+    display: none;
   }
 
-  .pictureSliders {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-flow: row nowrap;
-    column-gap: 5px;
-    justify-content: space-around;
+  .card {
+    box-sizing: border-box;
+    position: relative;
     width: 100%;
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    height: 100%;
+    padding: 30px;
+    cursor: pointer;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    align-items: flex-start;
+    row-gap: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 
-    .activeSlider,
-    .inactiveSlider {
-      border-radius: 5px;
-      height: 10px;
-      width: 20%;
+    .firstName,
+    .distanceFromUser {
+      color: globalVariables.$cardBackgroundColor;
     }
 
-    .activeSlider {
-      background-color: rgba(255, 255, 255, 0.88);
+    .distanceFromUser {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+      column-gap: 5px;
     }
 
-    .inactiveSlider {
-      background-color: rgba(34, 34, 34, 0.88);
-    }
-  }
+    .pictureSliders {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-flow: row nowrap;
+      column-gap: 5px;
+      justify-content: space-around;
+      width: 100%;
+      position: absolute;
+      top: 5%;
+      left: 50%;
+      transform: translate(-50%, -50%);
 
-  .previousPictureBtn,
-  .nextPictureBtn {
-    all: unset;
-    position: absolute;
-    top: 50%;
+      .activeSlider,
+      .inactiveSlider {
+        border-radius: 5px;
+        height: 10px;
+        width: 20%;
+      }
 
-    i {
-      color: white;
-    }
+      .activeSlider {
+        background-color: rgba(255, 255, 255, 0.88);
+      }
 
-    &:disabled {
-      i {
-        opacity: 0.3;
+      .inactiveSlider {
+        background-color: rgba(34, 34, 34, 0.88);
       }
     }
+
+    .previousPictureBtn,
+    .nextPictureBtn {
+      all: unset;
+      position: absolute;
+      top: 50%;
+
+      i {
+        color: white;
+      }
+
+      &:disabled {
+        i {
+          opacity: 0.3;
+        }
+      }
+    }
+
+    .previousPictureBtn {
+      left: 5%;
+    }
+
+    .nextPictureBtn {
+      right: 5%;
+    }
+
+    .matchInformationWrapper {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
   }
 
-  .previousPictureBtn {
-    left: 5%;
-  }
-
-  .nextPictureBtn {
-    right: 5%;
+  .firstName {
+    font-size: 30px;
   }
 
   .firstNameAndDistanceContainer {
@@ -80,14 +117,65 @@
     flex-flow: column nowrap;
     align-items: flex-start;
     row-gap: 5px;
-    color: white;
   }
 
-  .matchInformationWrapper {
+  .openInformationBtn {
+    all: unset;
+
+    i {
+      color: white;
+    }
+  }
+
+  .matchInformationContainer {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    background-color: globalVariables.$cardBackgroundColor;
+    position: relative;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .likeBtnsContainer {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+
+    .likeBtn {
+      all: unset;
+      color: rgb(0, 197, 0);
+      background-color: white;
+      border-radius: 50%;
+      padding: 20px;
+      z-index: 1;
+    }
+
+    .dislikeBtn {
+      all: unset;
+      color: rgb(255, 35, 35);
+      background-color: white;
+      border-radius: 50%;
+      padding: 20px;
+      z-index: 1;
+    }
+  }
+}
+
+.closeInformationBtn {
+  all: unset;
+  background-color: globalVariables.$mainRedColor;
+  border-radius: 50%;
+  padding: 15px;
+  position: absolute;
+  right: 10%;
+  bottom: -5%;
+  z-index: 1;
+
+  i {
+    color: white;
   }
 }
