@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import styles from "./TinderCard.module.scss";
 import ITinderCardProps from "../../interfaces/tinderCard/ITinderCardProps";
 import { url } from "inspector";
 import { Link } from "react-router-dom";
+import { TinderCardInformation } from "../TinderCardInformation/TinderCardInformation";
+import { useAppDispatch } from "../../hooks/reduxHooks";
+
+export const TinderCardContext = createContext<{
+  setIsInformationChecked: React.Dispatch<React.SetStateAction<boolean>>;
+  isInformationChecked: boolean;
+} | null>(null);
 
 export const TinderCard: React.FC<ITinderCardProps> = (
   props: ITinderCardProps
@@ -24,16 +31,6 @@ export const TinderCard: React.FC<ITinderCardProps> = (
 
     return notNullprofilePicturesCount;
   };
-
-  const [isInformationChecked, setIsInformationChecked] =
-    useState<boolean>(false);
-  const [currentProfilePictureNumber, setCurrentProfilePictureNumber] =
-    useState<number>(1);
-  const [currentProfilePicture, setCurrentProfilePicture] = useState<string>(
-    props.firstProfilePicture
-  );
-  const [totalProfilePicturesNumber, setTotalProfilePicturesNumber] =
-    useState<number>(notNullprofilePicturesCount());
 
   const generateSliders = () => {
     let sliderElements: JSX.Element[] = [];
@@ -59,6 +56,16 @@ export const TinderCard: React.FC<ITinderCardProps> = (
 
     return sliderElements;
   };
+
+  const [isInformationChecked, setIsInformationChecked] =
+    useState<boolean>(false);
+  const [currentProfilePictureNumber, setCurrentProfilePictureNumber] =
+    useState<number>(1);
+  const [currentProfilePicture, setCurrentProfilePicture] = useState<string>(
+    props.firstProfilePicture
+  );
+  const [totalProfilePicturesNumber, setTotalProfilePicturesNumber] =
+    useState<number>(notNullprofilePicturesCount());
 
   useEffect(() => {
     switch (currentProfilePictureNumber) {
@@ -97,45 +104,83 @@ export const TinderCard: React.FC<ITinderCardProps> = (
   }, [currentProfilePictureNumber]);
 
   return (
-    <div
-      style={{
-        background: `linear-gradient(rgba(0, 0, 0, 0.235), rgba(0, 0, 0, 0.4)), ${
-          currentProfilePicture === "./unknown-image.png"
-            ? `url(${currentProfilePicture}) center center / 100% 100%`
-            : `url(data:image/png;base64,${currentProfilePicture}) center center / 100% 100%`
-        } no-repeat`,
-      }}
-      className={styles.card}
-    >
-      <ul className={styles.pictureSliders}>{generateSliders()}</ul>
-      <button
-        className={styles.previousPictureBtn}
-        onClick={() => setCurrentProfilePictureNumber((state) => state - 1)}
-        disabled={currentProfilePictureNumber === 1}
+    <div className={styles.matchWrapper}>
+      <div
+        style={{
+          background: `linear-gradient(rgba(0, 0, 0, 0.235), rgba(0, 0, 0, 0.4)), ${
+            currentProfilePicture === "./unknown-image.png"
+              ? `url(${currentProfilePicture}) center center / 100% 100%`
+              : `url(data:image/png;base64,${currentProfilePicture}) center center / 100% 100%`
+          } no-repeat`,
+        }}
+        className={styles.card}
       >
-        <i className="fa-solid fa-less-than fa-xl"></i>
-      </button>
-      <button
-        className={styles.nextPictureBtn}
-        onClick={() => setCurrentProfilePictureNumber((state) => state + 1)}
-        disabled={
-          currentProfilePictureNumber === 5 ||
-          currentProfilePictureNumber === totalProfilePicturesNumber
-        }
-      >
-        <i className="fa-solid fa-greater-than fa-xl"></i>
-      </button>
-      <div className={styles.matchInformationWrapper}>
-        <div className={styles.firstNameAndDistanceContainer}>
-          <h1 className={styles.firstName}>
-            {props.firstName} {props.age}
-          </h1>
-          <p>{props.distanceFromUser} km away</p>
-        </div>
-        <button>
-          <i className="fa-solid fa-circle-info fa-xl"></i>
+        <ul className={styles.pictureSliders}>{generateSliders()}</ul>
+        <button
+          className={styles.previousPictureBtn}
+          onClick={() => setCurrentProfilePictureNumber((state) => state - 1)}
+          disabled={currentProfilePictureNumber === 1}
+        >
+          <i className="fa-solid fa-less-than fa-xl"></i>
         </button>
+        <button
+          className={styles.nextPictureBtn}
+          onClick={() => setCurrentProfilePictureNumber((state) => state + 1)}
+          disabled={
+            currentProfilePictureNumber === 5 ||
+            currentProfilePictureNumber === totalProfilePicturesNumber
+          }
+        >
+          <i className="fa-solid fa-greater-than fa-xl"></i>
+        </button>
+        {isInformationChecked === false ? (
+          <div className={styles.matchInformationWrapper}>
+            <div className={styles.firstNameAndDistanceContainer}>
+              <h2 className={styles.firstName}>
+                {props.firstName} {props.age}
+              </h2>
+              <div className={styles.distanceFromUser}>
+                <i className="fa-solid fa-location-dot fa-2xs"></i>
+                <p>{props.distanceFromUser} km away</p>
+              </div>
+            </div>
+            <button
+              className={styles.openInformationBtn}
+              onClick={() => setIsInformationChecked((state) => !state)}
+            >
+              <i className="fa-solid fa-circle-info fa-xl"></i>
+            </button>
+          </div>
+        ) : (
+          <></>
+        )}
+        {isInformationChecked === false ? (
+          <div className={styles.likeBtnsContainer}>
+            <button className={styles.dislikeBtn}>
+              <i className="fa-solid fa-x fa-2xl"></i>
+            </button>
+            <button className={styles.likeBtn}>
+              <i className="fa-solid fa-heart fa-2xl"></i>
+            </button>
+          </div>
+        ) : (
+          <button
+            className={styles.closeInformationBtn}
+            onClick={() => setIsInformationChecked!((state) => !state)}
+          >
+            <i className="fa-solid fa-x fa-2xl"></i>
+          </button>
+        )}
       </div>
+      {isInformationChecked === true ? (
+        <TinderCardContext.Provider
+          value={{ setIsInformationChecked, isInformationChecked }}
+        >
+          <TinderCardInformation {...props} />
+        </TinderCardContext.Provider>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
