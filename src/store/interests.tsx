@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import IInterestsState from "../interfaces/interests/IInterestsState/IInterestsState";
 import IInterest from "../interfaces/interests/IInterest/IInterest";
+import produce from "immer";
 
 export const initialState: IInterestsState =
   localStorage.getItem("interests") === null
@@ -14,15 +15,18 @@ const interestsSlice = createSlice({
   initialState: initialState,
   reducers: {
     addInterests: (state, action: PayloadAction<IInterest[]>) => {
-      console.log(action.payload);
-      state.interests = action.payload;
-
       localStorage.setItem("interests", JSON.stringify(action.payload));
+
+      state.interests = produce(state.interests, (draftState) => {
+        draftState.push(...action.payload);
+      });
     },
     removeInterests: (state) => {
-      state.interests = [];
-
       localStorage.removeItem("interests");
+
+      state.interests = produce(state.interests, (draftState) => {
+        draftState.length = 0;
+      });
     },
   },
 });
