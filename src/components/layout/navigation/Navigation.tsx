@@ -58,8 +58,8 @@ export const Navigation: React.FC = () => {
           <Link
             className={styles.logoutBtn}
             onClick={() => {
-              dispatch(logout());
               dispatch(removeInterests());
+              dispatch(logout());
             }}
             to={"/"}
           >
