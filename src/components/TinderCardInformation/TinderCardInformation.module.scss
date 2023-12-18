@@ -1,0 +1,70 @@
+@use "../../assets/globalVariables.scss" as globalVariables;
+
+.matchInformationContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: globalVariables.$cardBackgroundColor;
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-x: scroll;
+}
+
+.matchInformationWrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.firstNameAndDistanceContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  row-gap: 5px;
+}
+
+.firstName {
+  font-size: 30px;
+}
+
+.distanceFromUser {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.likeBtnsContainer {
+  position: fixed;
+  bottom: 5%;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+
+  .likeBtn {
+    all: unset;
+    color: rgb(0, 197, 0);
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    padding: 20px;
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  .dislikeBtn {
+    all: unset;
+    color: rgb(255, 35, 35);
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    padding: 20px;
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+}
