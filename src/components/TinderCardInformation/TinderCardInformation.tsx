@@ -2,13 +2,67 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./TinderCardInformation.module.scss";
 import ITinderCardProps from "../../interfaces/tinderCard/ITinderCardProps";
 import { TinderCardContext } from "../TinderCard/TinderCard";
-import { useAppSelector } from "../../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { getUsersInterest } from "../../services/interestService/interestService";
+import { toggleLoaderOff, toggleLoaderOn } from "../../store/loader";
+import { useNavigate } from "react-router-dom";
+import IInterest from "../../interfaces/interests/IInterest/IInterest";
 
 export const TinderCardInformation: React.FC<ITinderCardProps> = (props) => {
-  const { setIsInformationChecked, isInformationChecked } =
-    useContext(TinderCardContext) ?? {};
+  const { isInformationChecked } = useContext(TinderCardContext) ?? {};
+
+  const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
 
   const { interests } = useAppSelector((selector) => selector.interests);
+  const { token } = useAppSelector((selector) => selector.auth);
+
+  const [tinderCardInterests, setTinderCardInterests] = useState<IInterest[]>(
+    []
+  );
+
+  useEffect(() => {
+    dispatch(toggleLoaderOn());
+
+    setTinderCardInterests([]);
+
+    getUsersInterest(props.id, token!)
+      .then((response) => {
+        if (response.status === "Error") {
+          navigate("/not-found");
+        } else if (response.status === "Success") {
+          setTinderCardInterests((state) => [
+            ...state,
+            ...response.content.interests,
+          ]);
+        }
+      })
+      .catch()
+      .finally(() => {
+        dispatch(toggleLoaderOff());
+      });
+  }, []);
+
+  const getInterests = () => {
+    const interestElemements = tinderCardInterests.map((interest) => {
+      const hasCommonInterest = interests?.some((i) => i.id === interest.id);
+      console.log(hasCommonInterest);
+
+      return (
+        <span
+          className={
+            hasCommonInterest === true ? styles.commonInterest : styles.interest
+          }
+          key={interest.id}
+        >
+          {interest.name}
+        </span>
+      );
+    });
+
+    return interestElemements;
+  };
 
   return (
     <div className={styles.matchInformationContainer}>
@@ -22,16 +76,18 @@ export const TinderCardInformation: React.FC<ITinderCardProps> = (props) => {
             {props.distanceFromUser} km away
           </p>
         </div>
+        <hr />
+        <ul className={styles.interestsContainer}>{getInterests()}</ul>
       </div>
       {isInformationChecked === true ? (
-        <div className={styles.likeBtnsContainer}>
+        <>
           <button className={styles.dislikeBtn}>
             <i className="fa-solid fa-x fa-2xl"></i>
           </button>
           <button className={styles.likeBtn}>
             <i className="fa-solid fa-heart fa-2xl"></i>
           </button>
-        </div>
+        </>
       ) : (
         <></>
       )}
