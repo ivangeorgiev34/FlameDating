@@ -45,23 +45,29 @@ export const TinderCardInformation: React.FC<ITinderCardProps> = (props) => {
   }, []);
 
   const getInterests = () => {
-    const interestElemements = tinderCardInterests.map((interest) => {
-      const hasCommonInterest = interests?.some((i) => i.id === interest.id);
-      console.log(hasCommonInterest);
+    const commonInterestElements: JSX.Element[] = [];
+    const uncommonInterestElements: JSX.Element[] = [];
 
-      return (
-        <span
-          className={
-            hasCommonInterest === true ? styles.commonInterest : styles.interest
-          }
-          key={interest.id}
-        >
+    tinderCardInterests.forEach((interest) => {
+      const hasCommonInterest = interests?.some((i) => i.id === interest.id);
+
+      if (hasCommonInterest === true) {
+        commonInterestElements.push(
+          <span className={styles.commonInterest} key={interest.id}>
+            {interest.name}
+          </span>
+        );
+
+        return;
+      }
+      uncommonInterestElements.push(
+        <span className={styles.uncommonInterest} key={interest.id}>
           {interest.name}
         </span>
       );
     });
 
-    return interestElemements;
+    return [...commonInterestElements, ...uncommonInterestElements];
   };
 
   return (
