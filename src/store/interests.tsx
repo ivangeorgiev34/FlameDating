@@ -17,15 +17,15 @@ const interestsSlice = createSlice({
     addInterests: (state, action: PayloadAction<IInterest[]>) => {
       localStorage.setItem("interests", JSON.stringify(action.payload));
 
-      state.interests = produce(state.interests, (draftState) => {
-        draftState.push(...action.payload);
+      return produce(state, (draftState) => {
+        draftState.interests = action.payload;
       });
     },
     removeInterests: (state) => {
       localStorage.removeItem("interests");
 
-      state.interests = produce(state.interests, (draftState) => {
-        draftState.length = 0;
+      return produce(state, (draftState) => {
+        draftState.interests = [];
       });
     },
   },
