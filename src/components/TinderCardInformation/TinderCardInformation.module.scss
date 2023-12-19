@@ -2,22 +2,30 @@
 
 .matchInformationContainer {
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   background-color: globalVariables.$cardBackgroundColor;
   position: relative;
-  padding: 20px;
+  padding: 30px 20px;
   box-sizing: border-box;
   overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .matchInformationWrapper {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   justify-content: space-between;
-  align-items: center;
+  row-gap: 10px;
+  width: 100%;
+}
+
+hr {
   width: 100%;
 }
 
@@ -40,31 +48,56 @@
   column-gap: 5px;
 }
 
-.likeBtnsContainer {
+.likeBtn {
+  all: unset;
   position: fixed;
   bottom: 5%;
-  width: 100%;
+  right: 20%;
+  color: rgb(0, 197, 0);
+  background-color: rgba(255, 255, 255, 0.65);
+  border-radius: 50%;
+  padding: 20px;
+  z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.dislikeBtn {
+  all: unset;
+  position: fixed;
+  bottom: 5%;
+  left: 20%;
+  color: rgb(255, 35, 35);
+  background-color: rgba(255, 255, 255, 0.65);
+  border-radius: 50%;
+  padding: 20px;
+  z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.interestsContainer {
+  margin: 0;
+  padding: 0;
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-evenly;
+  flex-flow: row wrap;
+  column-gap: 10px;
+}
 
-  .likeBtn {
-    all: unset;
-    color: rgb(0, 197, 0);
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    padding: 20px;
-    z-index: 1;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  }
+.commonInterest {
+  background-color: globalVariables.$mainRedColor;
+  color: white;
+  padding: 5px 10px;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 1px solid black;
+}
 
-  .dislikeBtn {
-    all: unset;
-    color: rgb(255, 35, 35);
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    padding: 20px;
-    z-index: 1;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  }
+.uncommonInterest {
+  background-color: white;
+  color: black;
+  padding: 5px 10px;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 1px solid black;
 }
