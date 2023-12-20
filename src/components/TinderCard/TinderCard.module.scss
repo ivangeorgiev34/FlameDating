@@ -9,12 +9,7 @@
   transform: translate(-50%, -50%);
   display: flex;
   flex-flow: column nowrap;
-  overflow-y: scroll;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  min-height: 60%;
 
   .card {
     box-sizing: border-box;
