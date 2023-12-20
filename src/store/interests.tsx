@@ -8,7 +8,9 @@ export const initialState: IInterestsState =
     ? {
         interests: [],
       }
-    : JSON.parse(localStorage.getItem("interests")!);
+    : {
+        interests: JSON.parse(localStorage.getItem("interests")!),
+      };
 
 const interestsSlice = createSlice({
   name: "interests",
