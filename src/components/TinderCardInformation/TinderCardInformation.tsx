@@ -103,7 +103,11 @@ export const TinderCardInformation: React.FC<ITinderCardProps> = (props) => {
           <h2>Bio</h2>
           <p className={styles.matchInformation}>{props.biography}</p>
         </div>
-        <ul className={styles.interestsContainer}>{getInterests()}</ul>
+        <hr />
+        <div className={styles.generalInformationContainer}>
+          <h2>Interests</h2>
+          <ul className={styles.interestsContainer}>{getInterests()}</ul>
+        </div>
       </div>
       {isInformationChecked === true ? (
         <>
