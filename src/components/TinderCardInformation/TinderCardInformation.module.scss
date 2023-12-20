@@ -81,7 +81,8 @@ hr {
   padding: 0;
   display: flex;
   flex-flow: row wrap;
-  column-gap: 10px;
+  justify-content: space-evenly;
+  gap: 10px;
 }
 
 .commonInterest {
