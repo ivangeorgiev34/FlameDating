@@ -73,16 +73,36 @@ export const TinderCardInformation: React.FC<ITinderCardProps> = (props) => {
   return (
     <div className={styles.matchInformationContainer}>
       <div className={styles.matchInformationWrapper}>
-        <div className={styles.firstNameAndDistanceContainer}>
+        <div className={styles.generalInformationContainer}>
           <h2 className={styles.firstName}>
             {props.firstName} {props.age}
           </h2>
-          <p className={styles.distanceFromUser}>
+          <p className={styles.matchInformation}>
+            <i className="fa-solid fa-graduation-cap fa-2xs"></i>
+            {props.school}
+          </p>
+          <p className={styles.matchInformation}>
+            <i className="fa-solid fa-suitcase fa-2xs"></i>
+            {props.job}
+          </p>
+          <p className={styles.matchInformation}>
             <i className="fa-solid fa-location-dot fa-2xs"></i>
             {props.distanceFromUser} km away
           </p>
         </div>
         <hr />
+        <div className={styles.generalInformationContainer}>
+          <h2>Height</h2>
+          <p className={styles.matchInformation}>
+            <i className="fa-solid fa-ruler-vertical fa-2xs"></i>
+            {props.height} cm
+          </p>
+        </div>
+        <hr />
+        <div className={styles.generalInformationContainer}>
+          <h2>Bio</h2>
+          <p className={styles.matchInformation}>{props.biography}</p>
+        </div>
         <ul className={styles.interestsContainer}>{getInterests()}</ul>
       </div>
       {isInformationChecked === true ? (
