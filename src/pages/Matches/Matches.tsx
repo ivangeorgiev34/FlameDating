@@ -17,6 +17,8 @@ export const Matches: React.FC = () => {
   useEffect(() => {
     dispatch(toggleLoaderOn());
 
+    setMatches([]);
+
     getUserSuggestedMatches(token!)
       .then((response) => {
         if (response.status === "Error") {
