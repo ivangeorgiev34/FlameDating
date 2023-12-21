@@ -10,6 +10,7 @@
   display: flex;
   flex-flow: column nowrap;
   min-height: 60%;
+  user-select: none;
 
   .card {
     box-sizing: border-box;
@@ -143,7 +144,7 @@
     .likeBtn {
       all: unset;
       color: rgb(0, 197, 0);
-      background-color: white;
+      background-color: rgba(255, 255, 255, 0.65);
       border-radius: 50%;
       padding: 20px;
       z-index: 1;
@@ -152,7 +153,7 @@
     .dislikeBtn {
       all: unset;
       color: rgb(255, 35, 35);
-      background-color: white;
+      background-color: rgba(255, 255, 255, 0.65);
       border-radius: 50%;
       padding: 20px;
       z-index: 1;
