@@ -5,6 +5,7 @@ import { url } from "inspector";
 import { Link } from "react-router-dom";
 import { TinderCardInformation } from "../TinderCardInformation/TinderCardInformation";
 import { useAppDispatch } from "../../hooks/reduxHooks";
+import { useSpring, animated } from "@react-spring/web";
 
 export const TinderCardContext = createContext<{
   setIsInformationChecked: React.Dispatch<React.SetStateAction<boolean>>;
@@ -57,6 +58,29 @@ export const TinderCard: React.FC<ITinderCardProps> = (
     return sliderElements;
   };
 
+  const onLikeBtnClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+
+    api.start(() => {
+      return {
+        x: "120%",
+        y: "100%",
+        rotate: 20,
+      };
+    });
+  };
+
+  const [springProps, api] = useSpring(() => ({
+    from: {
+      x: "-50%",
+      y: "-50%",
+      rotate: 0,
+    },
+    config: {
+      duration: 2000,
+    },
+  }));
+
   const [isInformationChecked, setIsInformationChecked] =
     useState<boolean>(false);
   const [currentProfilePictureNumber, setCurrentProfilePictureNumber] =
@@ -104,7 +128,7 @@ export const TinderCard: React.FC<ITinderCardProps> = (
   }, [currentProfilePictureNumber]);
 
   return (
-    <div className={styles.matchWrapper}>
+    <animated.div className={styles.matchWrapper} style={springProps}>
       <div
         style={{
           background: `linear-gradient(rgba(0, 0, 0, 0.235), rgba(0, 0, 0, 0.4)), ${
@@ -159,7 +183,7 @@ export const TinderCard: React.FC<ITinderCardProps> = (
             <button className={styles.dislikeBtn}>
               <i className="fa-solid fa-x fa-2xl"></i>
             </button>
-            <button className={styles.likeBtn}>
+            <button className={styles.likeBtn} onClick={onLikeBtnClick}>
               <i className="fa-solid fa-heart fa-2xl"></i>
             </button>
           </div>
@@ -181,6 +205,6 @@ export const TinderCard: React.FC<ITinderCardProps> = (
       ) : (
         <></>
       )}
-    </div>
+    </animated.div>
   );
 };
