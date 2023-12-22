@@ -63,9 +63,21 @@ export const TinderCard: React.FC<ITinderCardProps> = (
 
     api.start(() => {
       return {
-        x: "120%",
+        x: "220%",
         y: "100%",
-        rotate: 20,
+        rotate: 25,
+      };
+    });
+  };
+
+  const onDislikeBtnClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+
+    api.start(() => {
+      return {
+        x: "-220%",
+        y: "100%",
+        rotate: -25,
       };
     });
   };
@@ -77,7 +89,7 @@ export const TinderCard: React.FC<ITinderCardProps> = (
       rotate: 0,
     },
     config: {
-      duration: 2000,
+      duration: 500,
     },
   }));
 
@@ -180,7 +192,7 @@ export const TinderCard: React.FC<ITinderCardProps> = (
         )}
         {isInformationChecked === false ? (
           <div className={styles.likeBtnsContainer}>
-            <button className={styles.dislikeBtn}>
+            <button className={styles.dislikeBtn} onClick={onDislikeBtnClick}>
               <i className="fa-solid fa-x fa-2xl"></i>
             </button>
             <button className={styles.likeBtn} onClick={onLikeBtnClick}>
@@ -200,7 +212,10 @@ export const TinderCard: React.FC<ITinderCardProps> = (
         <TinderCardContext.Provider
           value={{ setIsInformationChecked, isInformationChecked }}
         >
-          <TinderCardInformation {...props} />
+          <TinderCardInformation
+            {...props}
+            {...{ onLikeBtnClick, onDislikeBtnClick }}
+          />
         </TinderCardContext.Provider>
       ) : (
         <></>
