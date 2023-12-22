@@ -8,7 +8,14 @@ import { toggleLoaderOff, toggleLoaderOn } from "../../store/loader";
 import { useNavigate } from "react-router-dom";
 import IInterest from "../../interfaces/interests/IInterest/IInterest";
 
-export const TinderCardInformation: React.FC<ITinderCardProps> = (props) => {
+interface ITinderCardInformationProps extends ITinderCardProps {
+  onLikeBtnClick: (event: React.MouseEvent<HTMLElement>) => void;
+  onDislikeBtnClick: (event: React.MouseEvent<HTMLElement>) => void;
+}
+
+export const TinderCardInformation: React.FC<ITinderCardInformationProps> = (
+  props
+) => {
   const { isInformationChecked } = useContext(TinderCardContext) ?? {};
 
   const dispatch = useAppDispatch();
@@ -111,10 +118,13 @@ export const TinderCardInformation: React.FC<ITinderCardProps> = (props) => {
       </div>
       {isInformationChecked === true ? (
         <>
-          <button className={styles.dislikeBtn}>
+          <button
+            className={styles.dislikeBtn}
+            onClick={props.onDislikeBtnClick}
+          >
             <i className="fa-solid fa-x fa-2xl"></i>
           </button>
-          <button className={styles.likeBtn}>
+          <button className={styles.likeBtn} onClick={props.onLikeBtnClick}>
             <i className="fa-solid fa-heart fa-2xl"></i>
           </button>
         </>
