@@ -13,6 +13,7 @@ import { Matches } from "./pages/Matches/Matches";
 import { Unauthorized } from "./pages/Unauthorized/Unauthorized";
 import { InternalServerError } from "./pages/InternalServerError/InternalServerError";
 import { NotFound } from "./pages/NotFound/NotFound";
+import { BadRequest } from "./pages/BadRequest/BadRequest";
 
 function App() {
   const { isVisible } = useAppSelector((state) => state.menu);
@@ -28,6 +29,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/not-found" element={<NotFound />} />
+          <Route path="/bad-request" element={<BadRequest />} />
           <Route
             path="/internal-server-error"
             element={<InternalServerError />}
