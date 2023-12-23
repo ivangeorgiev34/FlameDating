@@ -97,4 +97,15 @@
   i {
     color: white;
   }
+
+  &:hover {
+    i {
+      transform: scale(1.1);
+      transition: transform 0.1s ease-in;
+    }
+  }
+}
+
+.backToHomeBtn {
+  color: white;
 }
