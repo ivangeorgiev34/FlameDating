@@ -12,6 +12,7 @@ import { PrivateRouteGuard } from "./guards/PrivateRouteGuard/PrivateRouteGuard"
 import { Matches } from "./pages/Matches/Matches";
 import { Unauthorized } from "./pages/Unauthorized/Unauthorized";
 import { InternalServerError } from "./pages/InternalServerError/InternalServerError";
+import { NotFound } from "./pages/NotFound/NotFound";
 
 function App() {
   const { isVisible } = useAppSelector((state) => state.menu);
@@ -26,6 +27,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/not-found" element={<NotFound />} />
           <Route
             path="/internal-server-error"
             element={<InternalServerError />}
