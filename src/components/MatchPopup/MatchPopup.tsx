@@ -19,6 +19,23 @@ export const MatchPopup: React.FC<IMatchPopupStateMatchedUser> = (
         className={styles.popupCard}
       >
         <p className={styles.matchMessage}>IT'S A MATCH</p>
+        <div className={styles.sendMessageContainer}>
+          <span>Be first to text {props.firstName}!</span>
+          <div className={styles.sendMessageInputContainer}>
+            <div className={styles.sendMessageInputWrapper}>
+              <i className="fa-regular fa-comment-dots"></i>
+              <input
+                type="text"
+                name="message"
+                placeholder="Send message..."
+                className={styles.sendMessageInput}
+              />
+            </div>
+            <button className={styles.sendMessageBtn}>
+              <i className="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
