@@ -3,6 +3,7 @@ import authReducer from "./auth";
 import loaderReducer from "./loader";
 import menuReducer from "./menu";
 import interestsReducer from "./interests";
+import matchPopupReducer from "./matchPopup";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     loader: loaderReducer,
     menu: menuReducer,
     interests: interestsReducer,
+    matchPopup: matchPopupReducer,
   },
 });
 
