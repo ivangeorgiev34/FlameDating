@@ -1,3 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,700&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .popupWrapper {
   position: fixed;
   top: 0px;
@@ -10,4 +18,22 @@
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
+  user-select: none;
+}
+
+.popupCard {
+  width: 30%;
+  height: 80%;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+}
+
+.matchMessage {
+  color: rgb(88, 255, 88);
+  font-style: italic;
+  font-weight: bold;
+  font-size: 50px;
+  font-family: "Roboto", sans-serif;
 }
