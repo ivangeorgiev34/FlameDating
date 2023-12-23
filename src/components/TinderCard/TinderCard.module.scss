@@ -12,6 +12,10 @@
   min-height: 60%;
   user-select: none;
 
+  .informationUncheckedCard {
+    border-radius: 10px;
+  }
+
   .card {
     box-sizing: border-box;
     position: relative;
@@ -81,6 +85,8 @@
       }
 
       &:disabled {
+        cursor: not-allowed;
+
         i {
           opacity: 0.3;
         }
