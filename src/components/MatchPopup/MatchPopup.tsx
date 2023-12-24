@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./MatchPopup.module.scss";
 import IMatchPopupStateMatchedUser from "../../interfaces/matchPopup/IMatchPopupStateMatchedUser";
 import { Link } from "react-router-dom";
@@ -7,6 +7,8 @@ import { useSpring, animated } from "@react-spring/web";
 export const MatchPopup: React.FC<IMatchPopupStateMatchedUser> = (
   props: IMatchPopupStateMatchedUser
 ) => {
+  const [message, setMessage] = useState<string>("");
+
   const [cardProps] = useSpring(() => ({
     from: {
       opacity: 0,
@@ -35,7 +37,7 @@ export const MatchPopup: React.FC<IMatchPopupStateMatchedUser> = (
         <p className={styles.matchMessage}>IT'S A MATCH</p>
         <div className={styles.sendMessageContainer}>
           <span>Be first to text {props.firstName}!</span>
-          <div className={styles.sendMessageInputContainer}>
+          <form className={styles.sendMessageInputContainer}>
             <div className={styles.sendMessageInputWrapper}>
               <i className="fa-regular fa-comment-dots"></i>
               <input
@@ -43,12 +45,14 @@ export const MatchPopup: React.FC<IMatchPopupStateMatchedUser> = (
                 name="message"
                 placeholder="Send message..."
                 className={styles.sendMessageInput}
+                value={message}
+                onChange={(e) => setMessage(() => e.target.value)}
               />
             </div>
             <button className={styles.sendMessageBtn}>
               <i className="fa-solid fa-paper-plane"></i>
             </button>
-          </div>
+          </form>
           <Link className={styles.backToHomeBtn} to={"/matches"} replace={true}>
             Back to exploring
           </Link>
