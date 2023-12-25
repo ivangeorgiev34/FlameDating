@@ -14,13 +14,18 @@ import { Unauthorized } from "./pages/Unauthorized/Unauthorized";
 import { InternalServerError } from "./pages/InternalServerError/InternalServerError";
 import { NotFound } from "./pages/NotFound/NotFound";
 import { BadRequest } from "./pages/BadRequest/BadRequest";
+import { MatchPopup } from "./components/MatchPopup/MatchPopup";
 
 function App() {
   const { isVisible } = useAppSelector((state) => state.menu);
   const { isLoading } = useAppSelector((state) => state.loader);
+  const { isMatchPopupActive, matchedUser } = useAppSelector(
+    (state) => state.matchPopup
+  );
 
   return (
     <React.Fragment>
+      {isMatchPopupActive === true ? <MatchPopup {...matchedUser!} /> : <></>}
       {isLoading === true ? <Loader /> : <></>}
       <Navigation />
       <main>
