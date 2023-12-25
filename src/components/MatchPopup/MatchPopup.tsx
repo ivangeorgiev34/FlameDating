@@ -5,12 +5,23 @@ import { Link } from "react-router-dom";
 import { useSpring, animated } from "@react-spring/web";
 import { useAppDispatch } from "../../hooks/reduxHooks";
 import { toggleMatchPopupOff } from "../../store/matchPopup";
+import { messageValidation } from "../../validators/matchPopup/messageValidation";
+import { useError } from "../../hooks/useError/useError";
+import IMatchPopupFormErrors from "../../interfaces/matchPopup/IMatchPopupFormErrors";
+import { formErrorsValidation } from "../../validators/formErrorsValidation/formErrorsValidation";
+import { useForm } from "../../hooks/useForm/useForm";
+import IMatchPopupForm from "../../interfaces/matchPopup/IMatchPopupForm";
 
 export const MatchPopup: React.FC<IMatchPopupStateMatchedUser> = (
   props: IMatchPopupStateMatchedUser
 ) => {
-  const [message, setMessage] = useState<string>("");
+  const { formValues, onFormChange } = useForm<IMatchPopupForm>({
+    message: "",
+  });
 
+  const { formErrors, onFormErrorChange } = useError<IMatchPopupFormErrors>({
+    message: "",
+  });
   const dispatch = useAppDispatch();
 
   const [cardProps] = useSpring(() => ({
@@ -45,11 +56,20 @@ export const MatchPopup: React.FC<IMatchPopupStateMatchedUser> = (
                 name="message"
                 placeholder="Send message..."
                 className={styles.sendMessageInput}
-                value={message}
-                onChange={(e) => setMessage(() => e.target.value)}
+                value={formValues.message}
+                onChange={(e) => onFormChange(e)}
+                onBlur={(e) =>
+                  onFormErrorChange(e, messageValidation(formValues.message))
+                }
               />
             </div>
-            <button className={styles.sendMessageBtn}>
+            <button
+              className={styles.sendMessageBtn}
+              disabled={formErrorsValidation<
+                IMatchPopupForm,
+                IMatchPopupFormErrors
+              >(formValues, formErrors)}
+            >
               <i className="fa-solid fa-paper-plane"></i>
             </button>
           </form>
