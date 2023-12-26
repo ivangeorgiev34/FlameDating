@@ -6,9 +6,11 @@ import ISuggestedMatch from "../../interfaces/matches/ISuggestedMatch";
 import { toggleLoaderOff, toggleLoaderOn } from "../../store/loader";
 import { useNavigate } from "react-router-dom";
 import { TinderCard } from "../../components/TinderCard/TinderCard";
+import { useSpring } from "@react-spring/web";
 
 export const Matches: React.FC = () => {
   const { token } = useAppSelector((state) => state.auth);
+  const { isLoading } = useAppSelector((state) => state.loader);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -37,9 +39,21 @@ export const Matches: React.FC = () => {
 
   return (
     <div className={styles.matchesWrapper}>
-      {matches.map((match) => {
-        return <TinderCard key={match.id} {...match} />;
-      })}
+      {isLoading === false ? (
+        matches.length === 0 ? (
+          <div className={styles.noMatchesMessageContainer}>
+            <p className={styles.noMatchesMessage}>
+              Sorry, but we cannot suggest you any people at this moment!
+            </p>
+          </div>
+        ) : (
+          matches.map((match) => {
+            return <TinderCard key={match.id} {...match} />;
+          })
+        )
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
