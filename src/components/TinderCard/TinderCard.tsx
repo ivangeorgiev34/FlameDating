@@ -2,10 +2,12 @@ import React, { createContext, useEffect, useState } from "react";
 import styles from "./TinderCard.module.scss";
 import ITinderCardProps from "../../interfaces/tinderCard/ITinderCardProps";
 import { url } from "inspector";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TinderCardInformation } from "../TinderCardInformation/TinderCardInformation";
-import { useAppDispatch } from "../../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { useSpring, animated } from "@react-spring/web";
+import { likeUser } from "../../services/likeService/likeService";
+import { toggleMatchPopupOn } from "../../store/matchPopup";
 
 export const TinderCardContext = createContext<{
   setIsInformationChecked: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,6 +17,12 @@ export const TinderCardContext = createContext<{
 export const TinderCard: React.FC<ITinderCardProps> = (
   props: ITinderCardProps
 ) => {
+  const { token, id } = useAppSelector((selector) => selector.auth);
+
+  const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
   const notNullprofilePicturesCount = (): number => {
     let profilePicturesPropertyNames = [
       "firstProfilePicture",
@@ -67,6 +75,16 @@ export const TinderCard: React.FC<ITinderCardProps> = (
         y: "100%",
         rotate: 25,
       };
+    });
+
+    likeUser(token!, props.id).then((response) => {
+      if (response.message === "Successfully matched with user") {
+        dispatch(toggleMatchPopupOn(props));
+      } else if (response.message === "User not found") {
+        navigate("/not-found");
+      } else {
+        navigate("/bad-request");
+      }
     });
   };
 
@@ -149,7 +167,10 @@ export const TinderCard: React.FC<ITinderCardProps> = (
               : `url(data:image/png;base64,${currentProfilePicture}) center center / 100% 100%`
           } no-repeat`,
         }}
-        className={styles.card}
+        className={`${styles.card} 
+        ${
+          isInformationChecked === false ? styles.informationUncheckedCard : ""
+        }`}
       >
         <ul className={styles.pictureSliders}>{generateSliders()}</ul>
         <button
