@@ -73,6 +73,7 @@ export const MatchPopup: React.FC<IMatchPopupStateMatchedUser> = (
               <i className="fa-solid fa-paper-plane"></i>
             </button>
           </form>
+          <span className={styles.error}>{formErrors.message}</span>
           <Link
             className={styles.backToHomeBtn}
             to={"/"}
