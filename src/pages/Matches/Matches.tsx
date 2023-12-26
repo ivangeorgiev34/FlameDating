@@ -4,9 +4,9 @@ import { getUserSuggestedMatches } from "../../services/matchesService/matchesSe
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import ISuggestedMatch from "../../interfaces/matches/ISuggestedMatch";
 import { toggleLoaderOff, toggleLoaderOn } from "../../store/loader";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TinderCard } from "../../components/TinderCard/TinderCard";
-import { useSpring } from "@react-spring/web";
+import { useSpring, animated } from "@react-spring/web";
 
 export const Matches: React.FC = () => {
   const { token } = useAppSelector((state) => state.auth);
@@ -15,6 +15,18 @@ export const Matches: React.FC = () => {
   const navigate = useNavigate();
 
   const [matches, setMatches] = useState<ISuggestedMatch[]>([]);
+
+  const [noMatchesProps] = useSpring(() => ({
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+    config: {
+      duration: 700,
+    },
+  }));
 
   useEffect(() => {
     dispatch(toggleLoaderOn());
@@ -41,11 +53,17 @@ export const Matches: React.FC = () => {
     <div className={styles.matchesWrapper}>
       {isLoading === false ? (
         matches.length === 0 ? (
-          <div className={styles.noMatchesMessageContainer}>
+          <animated.div
+            style={noMatchesProps}
+            className={styles.noMatchesMessageContainer}
+          >
             <p className={styles.noMatchesMessage}>
               Sorry, but we cannot suggest you any people at this moment!
             </p>
-          </div>
+            <Link className={styles.backToHomeBtn} to={"/"}>
+              Back to home
+            </Link>
+          </animated.div>
         ) : (
           matches.map((match) => {
             return <TinderCard key={match.id} {...match} />;
