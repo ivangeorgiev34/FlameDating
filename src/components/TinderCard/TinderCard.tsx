@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { TinderCardInformation } from "../TinderCardInformation/TinderCardInformation";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { useSpring, animated } from "@react-spring/web";
-import { likeUser } from "../../services/likeService/likeService";
+import { dislikeUser, likeUser } from "../../services/likeService/likeService";
 import { toggleMatchPopupOn } from "../../store/matchPopup";
 
 export const TinderCardContext = createContext<{
@@ -97,6 +97,14 @@ export const TinderCard: React.FC<ITinderCardProps> = (
         y: "100%",
         rotate: -25,
       };
+    });
+
+    dislikeUser(token!, props.id).then((response) => {
+      if (response.message === "User not found") {
+        navigate("/not-found");
+      } else {
+        navigate("/bad-request");
+      }
     });
   };
 
