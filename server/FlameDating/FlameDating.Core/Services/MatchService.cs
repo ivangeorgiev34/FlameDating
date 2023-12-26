@@ -63,7 +63,7 @@ namespace FlameDating.Core.Services
                 decimal.ToDouble(u.LocationLongitude), 1, DistanceUnit.Kilometers))
                 <= user.Preference.MaximumDistance
                         && user.Likes.Any(l => DateTime.Now.DayOfYear - l.LikeDate.DayOfYear >= 30
-                            && (l.LikerUserId == u.Id || l.LikedUserId == u.Id)) == false
+                            && (l.LikerUserId == u.Id || l.LikedUserId == u.Id)) == true
                         && user.UsersInterests.Count(ui => u.UsersInterests.Any(i => i.Interest.Name == ui.Interest.Name)) >= 2)
                 .Select(u => new UserDto()
                 {
