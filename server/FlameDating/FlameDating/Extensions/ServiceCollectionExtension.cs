@@ -36,7 +36,6 @@ namespace FlameDating.Extensions
                     {
 
                         var accessToken = context.Request.Query["access_token"];
-                        Console.WriteLine(accessToken);
                         if (string.IsNullOrEmpty(accessToken) == false)
                         {
                             context.Token = accessToken;
