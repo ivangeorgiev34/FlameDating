@@ -7,5 +7,7 @@ namespace FlameDating.Core.Contracts
         Task<Guid> CreateChatAsync();
 
         Task<List<GetUsersChatsDto>> GetUsersChatsAsync(Guid userId);
+
+        Task<Guid?> GetChatIdBySenderAndRecieverIds(Guid senderId, Guid recieverId);
     }
 }
