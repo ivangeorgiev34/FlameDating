@@ -25,6 +25,15 @@ namespace FlameDating.Core.Services
             return chat.Id;
         }
 
+        public async Task<Guid?> GetChatIdBySenderAndRecieverIds(Guid senderId, Guid recieverId)
+        {
+            var chat = await repo.AllReadonly<Match>()
+                .FirstOrDefaultAsync(m => (m.FirstUserId == senderId && m.SecondUserId == recieverId)
+                    || (m.FirstUserId == recieverId && m.SecondUserId == senderId));
+
+            return chat?.ChatId;
+        }
+
         public async Task<List<GetUsersChatsDto>> GetUsersChatsAsync(Guid userId)
         {
             var chats = await repo.AllReadonly<Match>()
