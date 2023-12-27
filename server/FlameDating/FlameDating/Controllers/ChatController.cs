@@ -44,7 +44,7 @@ namespace FlameDating.Controllers
         }
 
         [HttpGet]
-        [Route("chat/{recieverId}")]
+        [Route("chats/reciever/{recieverId}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetChatId(string recieverId)
         {
