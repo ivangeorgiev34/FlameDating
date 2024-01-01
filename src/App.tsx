@@ -15,6 +15,7 @@ import { InternalServerError } from "./pages/InternalServerError/InternalServerE
 import { NotFound } from "./pages/NotFound/NotFound";
 import { BadRequest } from "./pages/BadRequest/BadRequest";
 import { MatchPopup } from "./components/MatchPopup/MatchPopup";
+import { Register } from "./pages/Register/Register";
 
 function App() {
   const { isVisible } = useAppSelector((state) => state.menu);
@@ -41,6 +42,7 @@ function App() {
           />
           <Route element={<PublicRouteGuard />}>
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Route>
           <Route element={<PrivateRouteGuard />}>
             <Route path="/matches" element={<Matches />} />
