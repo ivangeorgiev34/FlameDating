@@ -6,6 +6,7 @@ import { useError } from "../../hooks/useError/useError";
 import IRegisterFormErrors from "../../interfaces/register/IRegisterFormErrors";
 import { firstNameValidation } from "../../validators/register/firstNameValidation/firstNameValidation";
 import { middleNameValidation } from "../../validators/register/middleNameValidation/middleNameValidation";
+import { lastNameValidation } from "../../validators/register/lastNameValidation/lastNameValidation";
 
 export const Register: React.FC = () => {
   const { formValues, onFormChange, onFormChangeImage } =
@@ -14,7 +15,7 @@ export const Register: React.FC = () => {
       middleName: "",
       lastName: "",
       age: 0,
-      gender: "",
+      gender: "Male",
       height: 0,
       school: "",
       job: "",
@@ -110,11 +111,35 @@ export const Register: React.FC = () => {
               value={formValues.lastName}
               onChange={(e) => onFormChange(e)}
               onBlur={(e) =>
-                onFormErrorChange(e, middleNameValidation(formValues.lastName))
+                onFormErrorChange(e, lastNameValidation(formValues.lastName))
               }
             />
           </div>
           <span className={styles.error}>{formErrors.lastName}</span>
+        </div>
+        <div className={styles.genderContainer}>
+          <div className={styles.genderOptionContainer}>
+            <label htmlFor="male">Male:</label>
+            <input
+              type="radio"
+              id="male"
+              name="gender"
+              value="Male"
+              onChange={onFormChange}
+              checked={formValues.gender === "Male"}
+            />
+          </div>
+          <div className={styles.genderOptionContainer}>
+            <label htmlFor="female">Female:</label>
+            <input
+              type="radio"
+              id="female"
+              name="gender"
+              value="Female"
+              onChange={onFormChange}
+              checked={formValues.gender === "Female"}
+            />
+          </div>
         </div>
       </div>
     </div>
