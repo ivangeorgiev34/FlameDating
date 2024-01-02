@@ -60,3 +60,8 @@
     @include globalMixins.inputFocusAndBlur;
   }
 }
+
+.error {
+  color: red;
+  text-align: center;
+}
