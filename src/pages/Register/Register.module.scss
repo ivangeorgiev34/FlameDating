@@ -40,3 +40,21 @@
     transform: translate(-50%, -50%);
   }
 }
+
+.firstNameContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: 5px;
+  width: 65%;
+
+  input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    padding-left: 30px;
+    border: 1px solid globalVariables.$boxBorderGrey;
+    border-radius: 5px;
+
+    @include globalMixins.inputFocusAndBlur;
+  }
+}
