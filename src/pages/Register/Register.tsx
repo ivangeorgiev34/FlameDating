@@ -67,7 +67,7 @@ export const Register: React.FC = () => {
             <i className="fa-solid fa-user"></i>
             <input
               type="firstName"
-              name="passwfirstNameord"
+              name="firstName"
               placeholder="First name..."
               value={formValues.firstName}
               onChange={(e) => onFormChange(e)}
@@ -76,7 +76,24 @@ export const Register: React.FC = () => {
               }
             />
           </div>
-          <span className={styles.error}>{formErrors.password}</span>
+          <span className={styles.error}>{formErrors.firstName}</span>
+        </div>
+        <div className={styles.middleNameContainer}>
+          <label htmlFor="middleName">Middle name:</label>
+          <div className={styles.middleNameInputContainer}>
+            <i className="fa-solid fa-user"></i>
+            <input
+              type="middleName"
+              name="middleName"
+              placeholder="Middle name..."
+              value={formValues.middleName}
+              onChange={(e) => onFormChange(e)}
+              onBlur={(e) =>
+                onFormErrorChange(e, firstNameValidation(formValues.middleName))
+              }
+            />
+          </div>
+          <span className={styles.error}>{formErrors.middleName}</span>
         </div>
       </div>
     </div>
