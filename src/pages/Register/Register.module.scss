@@ -29,7 +29,8 @@
   background-color: globalVariables.$cardBackgroundColor;
 }
 
-.firstNameInputContainer {
+.firstNameInputContainer,
+.middleNameInputContainer {
   position: relative;
   width: 100%;
   i {
@@ -41,7 +42,8 @@
   }
 }
 
-.firstNameContainer {
+.firstNameContainer,
+.middleNameContainer {
   display: flex;
   flex-flow: column nowrap;
   row-gap: 5px;
