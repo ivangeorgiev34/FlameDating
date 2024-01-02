@@ -4,7 +4,8 @@ import { useForm } from "../../hooks/useForm/useForm";
 import IRegisterForm from "../../interfaces/register/IRegisterForm";
 import { useError } from "../../hooks/useError/useError";
 import IRegisterFormErrors from "../../interfaces/register/IRegisterFormErrors";
-import { firstNameValidation } from "../../validators/register/firstNameValidation";
+import { firstNameValidation } from "../../validators/register/firstNameValidation/firstNameValidation";
+import { middleNameValidation } from "../../validators/register/middleNameValidation/middleNameValidation";
 
 export const Register: React.FC = () => {
   const { formValues, onFormChange, onFormChangeImage } =
@@ -89,11 +90,31 @@ export const Register: React.FC = () => {
               value={formValues.middleName}
               onChange={(e) => onFormChange(e)}
               onBlur={(e) =>
-                onFormErrorChange(e, firstNameValidation(formValues.middleName))
+                onFormErrorChange(
+                  e,
+                  middleNameValidation(formValues.middleName)
+                )
               }
             />
           </div>
           <span className={styles.error}>{formErrors.middleName}</span>
+        </div>
+        <div className={styles.lastNameContainer}>
+          <label htmlFor="lastName">Last name:</label>
+          <div className={styles.lastNameInputContainer}>
+            <i className="fa-solid fa-user"></i>
+            <input
+              type="lastName"
+              name="lastName"
+              placeholder="Last name..."
+              value={formValues.lastName}
+              onChange={(e) => onFormChange(e)}
+              onBlur={(e) =>
+                onFormErrorChange(e, middleNameValidation(formValues.lastName))
+              }
+            />
+          </div>
+          <span className={styles.error}>{formErrors.lastName}</span>
         </div>
       </div>
     </div>
