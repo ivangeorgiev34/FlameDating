@@ -7,6 +7,7 @@ import IRegisterFormErrors from "../../interfaces/register/IRegisterFormErrors";
 import { firstNameValidation } from "../../validators/register/firstNameValidation/firstNameValidation";
 import { middleNameValidation } from "../../validators/register/middleNameValidation/middleNameValidation";
 import { lastNameValidation } from "../../validators/register/lastNameValidation/lastNameValidation";
+import { heightValidation } from "../../validators/register/heightValidation/heightValidation";
 
 export const Register: React.FC = () => {
   const { formValues, onFormChange, onFormChangeImage } =
@@ -68,7 +69,7 @@ export const Register: React.FC = () => {
           <div className={styles.firstNameInputContainer}>
             <i className="fa-solid fa-user"></i>
             <input
-              type="firstName"
+              type="text"
               name="firstName"
               placeholder="First name..."
               value={formValues.firstName}
@@ -85,7 +86,7 @@ export const Register: React.FC = () => {
           <div className={styles.middleNameInputContainer}>
             <i className="fa-solid fa-user"></i>
             <input
-              type="middleName"
+              type="text"
               name="middleName"
               placeholder="Middle name..."
               value={formValues.middleName}
@@ -105,7 +106,7 @@ export const Register: React.FC = () => {
           <div className={styles.lastNameInputContainer}>
             <i className="fa-solid fa-user"></i>
             <input
-              type="lastName"
+              type="text"
               name="lastName"
               placeholder="Last name..."
               value={formValues.lastName}
@@ -140,6 +141,23 @@ export const Register: React.FC = () => {
               checked={formValues.gender === "Female"}
             />
           </div>
+        </div>
+        <div className={styles.heightContainer}>
+          <label htmlFor="height">Height:</label>
+          <div className={styles.heightInputContainer}>
+            <i className="fa-solid fa-ruler"></i>
+            <input
+              type="number"
+              name="height"
+              placeholder="Height..."
+              value={formValues.height}
+              onChange={(e) => onFormChange(e)}
+              onBlur={(e) =>
+                onFormErrorChange(e, heightValidation(formValues.height))
+              }
+            />
+          </div>
+          <span className={styles.error}>{formErrors.height}</span>
         </div>
       </div>
     </div>
