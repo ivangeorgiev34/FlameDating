@@ -31,7 +31,8 @@
 
 .firstNameInputContainer,
 .middleNameInputContainer,
-.lastNameInputContainer {
+.lastNameInputContainer,
+.heightInputContainer {
   position: relative;
   width: 100%;
   i {
@@ -45,7 +46,8 @@
 
 .firstNameContainer,
 .middleNameContainer,
-.lastNameContainer {
+.lastNameContainer,
+.heightContainer {
   display: flex;
   flex-flow: column nowrap;
   row-gap: 5px;
