@@ -33,7 +33,8 @@
 .middleNameInputContainer,
 .lastNameInputContainer,
 .heightInputContainer,
-.ageInputContainer {
+.ageInputContainer,
+.schoolInputContainer {
   position: relative;
   width: 100%;
   i {
@@ -49,7 +50,8 @@
 .middleNameContainer,
 .lastNameContainer,
 .heightContainer,
-.ageContainer {
+.ageContainer,
+.schoolContainer {
   display: flex;
   flex-flow: column nowrap;
   row-gap: 5px;
