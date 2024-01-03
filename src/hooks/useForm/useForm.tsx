@@ -3,6 +3,15 @@ import React, { useState } from "react";
 export function useForm<T>(initialFormValues: T) {
   let [formValues, setFormValues] = useState(initialFormValues);
 
+  const onFormTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const eventTarget = e.currentTarget as HTMLTextAreaElement;
+
+    setFormValues((state) => ({
+      ...state,
+      [eventTarget.name]: eventTarget.value,
+    }));
+  };
+
   const onFormChange = (e: React.FormEvent<HTMLInputElement>) => {
     const eventTarget = e.currentTarget as HTMLInputElement;
 
@@ -30,5 +39,6 @@ export function useForm<T>(initialFormValues: T) {
     onFormChange,
     setDefaultValues,
     onFormChangeImage,
+    onFormTextAreaChange,
   };
 }
