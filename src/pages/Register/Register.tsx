@@ -11,7 +11,7 @@ import { heightValidation } from "../../validators/register/heightValidation/hei
 import { ageValidation } from "../../validators/register/ageValidation/ageValidation";
 
 export const Register: React.FC = () => {
-  const { formValues, onFormChange, onFormChangeImage } =
+  const { formValues, onFormChange, onFormChangeImage, onFormTextAreaChange } =
     useForm<IRegisterForm>({
       firstName: "",
       middleName: "",
@@ -202,6 +202,16 @@ export const Register: React.FC = () => {
               onChange={(e) => onFormChange(e)}
             />
           </div>
+        </div>
+        <div className={styles.biographyContainer}>
+          <label htmlFor="biography">Biography:</label>
+          <textarea
+            name="biography"
+            id="biography"
+            rows={10}
+            value={formValues.biography}
+            onChange={(e) => onFormTextAreaChange(e)}
+          />
         </div>
       </div>
     </div>
