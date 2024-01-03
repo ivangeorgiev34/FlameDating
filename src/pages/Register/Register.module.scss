@@ -53,7 +53,8 @@
 .heightContainer,
 .ageContainer,
 .schoolContainer,
-.jobContainer {
+.jobContainer,
+.maximumDistanceContainer {
   display: flex;
   flex-flow: column nowrap;
   row-gap: 5px;
