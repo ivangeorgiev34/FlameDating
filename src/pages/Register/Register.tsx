@@ -177,6 +177,19 @@ export const Register: React.FC = () => {
           </div>
           <span className={styles.error}>{formErrors.age}</span>
         </div>
+        <div className={styles.schoolContainer}>
+          <label htmlFor="school">School:</label>
+          <div className={styles.schoolInputContainer}>
+            <i className="fa-solid fa-school"></i>
+            <input
+              type="text"
+              name="school"
+              placeholder="School..."
+              value={formValues.school}
+              onChange={(e) => onFormChange(e)}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
