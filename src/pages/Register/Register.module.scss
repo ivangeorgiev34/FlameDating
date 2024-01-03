@@ -51,7 +51,8 @@
 .lastNameContainer,
 .heightContainer,
 .ageContainer,
-.schoolContainer {
+.schoolContainer,
+.jobContainer {
   display: flex;
   flex-flow: column nowrap;
   row-gap: 5px;
