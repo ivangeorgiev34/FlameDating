@@ -9,6 +9,7 @@ import { middleNameValidation } from "../../validators/register/middleNameValida
 import { lastNameValidation } from "../../validators/register/lastNameValidation/lastNameValidation";
 import { heightValidation } from "../../validators/register/heightValidation/heightValidation";
 import { ageValidation } from "../../validators/register/ageValidation/ageValidation";
+import { firstProfilePictureValidation } from "../../validators/register/firstProfilePictureValidation/firstProfilePictureValidation";
 
 export const Register: React.FC = () => {
   const { formValues, onFormChange, onFormChangeImage, onFormTextAreaChange } =
@@ -101,7 +102,15 @@ export const Register: React.FC = () => {
             accept="image/png, image/jpeg, image/jpg"
             name={currentProfilePictureValue}
             id={currentProfilePictureValue}
-            onChange={(e) => onFormChangeImage(e)}
+            onChange={(e) => {
+              onFormChangeImage(e);
+              onFormErrorChange(
+                e,
+                firstProfilePictureValidation(
+                  e.target.files !== null ? e.target.files.item(0) : null
+                )
+              );
+            }}
           />
           <label
             className={styles.uploadProfilePictureBtn}
