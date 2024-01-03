@@ -190,6 +190,19 @@ export const Register: React.FC = () => {
             />
           </div>
         </div>
+        <div className={styles.jobContainer}>
+          <label htmlFor="job">Job:</label>
+          <div className={styles.jobInputContainer}>
+            <i className="fa-solid fa-suitcase"></i>
+            <input
+              type="text"
+              name="job"
+              placeholder="Job..."
+              value={formValues.job}
+              onChange={(e) => onFormChange(e)}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
