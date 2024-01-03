@@ -10,6 +10,7 @@ import { lastNameValidation } from "../../validators/register/lastNameValidation
 import { heightValidation } from "../../validators/register/heightValidation/heightValidation";
 import { ageValidation } from "../../validators/register/ageValidation/ageValidation";
 import { firstProfilePictureValidation } from "../../validators/register/firstProfilePictureValidation/firstProfilePictureValidation";
+import { maximumDistanceValidation } from "../../validators/register/maximumDistanceValidation/maximumDistanceValidation";
 
 export const Register: React.FC = () => {
   const { formValues, onFormChange, onFormChangeImage, onFormTextAreaChange } =
@@ -296,6 +297,26 @@ export const Register: React.FC = () => {
         </div>
         <div className={styles.profilePicturesContainer}>
           {generateProfilePictureContainers()}
+        </div>
+        <div className={styles.maximumDistanceContainer}>
+          <label htmlFor="maximumDistance">Maximum distance:</label>
+          <div className={styles.maximumDistanceInputContainer}>
+            <i className="fa-solid fa-map-location-dot"></i>
+            <input
+              type="number"
+              name="maximumDistance"
+              placeholder="Maximum distance..."
+              value={formValues.maximumDistance}
+              onChange={(e) => onFormChange(e)}
+              onBlur={(e) =>
+                onFormErrorChange(
+                  e,
+                  maximumDistanceValidation(formValues.maximumDistance)
+                )
+              }
+            />
+          </div>
+          <span className={styles.error}>{formErrors.maximumDistance}</span>
         </div>
       </div>
     </div>
