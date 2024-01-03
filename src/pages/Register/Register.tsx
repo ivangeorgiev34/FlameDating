@@ -8,6 +8,7 @@ import { firstNameValidation } from "../../validators/register/firstNameValidati
 import { middleNameValidation } from "../../validators/register/middleNameValidation/middleNameValidation";
 import { lastNameValidation } from "../../validators/register/lastNameValidation/lastNameValidation";
 import { heightValidation } from "../../validators/register/heightValidation/heightValidation";
+import { ageValidation } from "../../validators/register/ageValidation/ageValidation";
 
 export const Register: React.FC = () => {
   const { formValues, onFormChange, onFormChangeImage } =
@@ -158,6 +159,23 @@ export const Register: React.FC = () => {
             />
           </div>
           <span className={styles.error}>{formErrors.height}</span>
+        </div>
+        <div className={styles.ageContainer}>
+          <label htmlFor="age">Age:</label>
+          <div className={styles.ageInputContainer}>
+            <i className="fa-solid fa-arrow-up-1-9"></i>
+            <input
+              type="number"
+              name="age"
+              placeholder="Age..."
+              value={formValues.age}
+              onChange={(e) => onFormChange(e)}
+              onBlur={(e) =>
+                onFormErrorChange(e, ageValidation(formValues.age))
+              }
+            />
+          </div>
+          <span className={styles.error}>{formErrors.age}</span>
         </div>
       </div>
     </div>
