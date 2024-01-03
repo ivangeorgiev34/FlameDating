@@ -61,6 +61,78 @@ export const Register: React.FC = () => {
     location: "",
   });
 
+  const generateProfilePictureContainers = (): JSX.Element[] => {
+    const profilePicturesKeys: { [key: number]: string } = {
+      1: "firstProfilePicture",
+      2: "secondProfilePicture",
+      3: "thirdProfilePicture",
+      4: "fourthProfilePicture",
+      5: "fifthProfilePicture",
+    };
+
+    const profilePictureContainers: JSX.Element[] = [];
+
+    let currentProfilePictureContainer;
+    let currentProfilePictureValue;
+
+    for (const key in profilePicturesKeys) {
+      currentProfilePictureValue = profilePicturesKeys[key];
+
+      currentProfilePictureContainer = (
+        <div
+          className={styles.profilePictureContainer}
+          key={currentProfilePictureValue}
+        >
+          <label>{getProfilePicturePropertyName(Number.parseInt(key))}</label>
+          <img
+            className={styles.profilePicture}
+            src={
+              formValues[currentProfilePictureValue] === null
+                ? "/unknown-image.png"
+                : URL.createObjectURL(
+                    formValues[currentProfilePictureValue] as File
+                  )
+            }
+            alt={currentProfilePictureValue}
+          />
+          <input
+            className={styles.profilePictureInput}
+            type="file"
+            accept="image/png, image/jpeg, image/jpg"
+            name={currentProfilePictureValue}
+            id={currentProfilePictureValue}
+            onChange={(e) => onFormChangeImage(e)}
+          />
+          <label
+            className={styles.uploadProfilePictureBtn}
+            htmlFor={currentProfilePictureValue}
+          >
+            Upload
+          </label>
+        </div>
+      );
+
+      profilePictureContainers.push(currentProfilePictureContainer);
+    }
+
+    return profilePictureContainers;
+  };
+
+  const getProfilePicturePropertyName = (num: number) => {
+    switch (num) {
+      case 1:
+        return "First profile picture:";
+      case 2:
+        return "Second profile picture:";
+      case 3:
+        return "Third profile picture:";
+      case 4:
+        return "Fourth profile picture:";
+      case 5:
+        return "Fifth profile picture:";
+    }
+  };
+
   return (
     <div className={styles.registerCardContainer}>
       <div className={styles.registerCard}>
@@ -212,6 +284,9 @@ export const Register: React.FC = () => {
             value={formValues.biography}
             onChange={(e) => onFormTextAreaChange(e)}
           />
+        </div>
+        <div className={styles.profilePicturesContainer}>
+          {generateProfilePictureContainers()}
         </div>
       </div>
     </div>
