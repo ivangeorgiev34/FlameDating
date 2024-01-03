@@ -21,4 +21,5 @@ export default interface IRegisterForm {
   confirmPassword: string;
   locationLatitude: number;
   locationLongitude: number;
+  [key: string]: string | number | File | null;
 }
