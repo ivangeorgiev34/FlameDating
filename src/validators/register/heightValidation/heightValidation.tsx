@@ -11,5 +11,9 @@ export const heightValidation = (height: string | number): string => {
       : "";
   }
 
-  return height <= 0 ? "Height must be more than zero" : "";
+  return height <= 0
+    ? "Height must be more than zero"
+    : height < 1.2 || height > 2.5
+    ? "Height must be in range between 1.20 cm and 2.50 cm"
+    : "";
 };
