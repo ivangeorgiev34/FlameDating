@@ -62,7 +62,7 @@ export const Register: React.FC = () => {
   });
 
   const generateProfilePictureContainers = (): JSX.Element[] => {
-    const profilePicturesKeys: { [key: number]: string } = {
+    const profilePicturesKeys: { [key: string]: string } = {
       1: "firstProfilePicture",
       2: "secondProfilePicture",
       3: "thirdProfilePicture",
