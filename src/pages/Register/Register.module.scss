@@ -107,3 +107,44 @@
     @include globalMixins.inputFocusAndBlur;
   }
 }
+
+.profilePicture {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.profilePictureInput {
+  display: none;
+}
+
+.uploadProfilePictureBtn {
+  border-radius: 10px;
+  border: 1px solid globalVariables.$boxBorderGrey;
+  padding: 5px 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: globalVariables.$whiteBtnHoverColor;
+    @include globalMixins.btnHoverAnimation;
+  }
+}
+
+.profilePictureContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: 10px;
+  align-items: center;
+  width: 40%;
+
+  label {
+    text-align: center;
+  }
+}
+
+.profilePicturesContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  gap: 10px;
+}
