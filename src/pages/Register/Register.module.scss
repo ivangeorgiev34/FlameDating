@@ -96,4 +96,14 @@
   flex-flow: column nowrap;
   row-gap: 5px;
   width: 65%;
+
+  textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid globalVariables.$boxBorderGrey;
+    border-radius: 5px;
+
+    @include globalMixins.inputFocusAndBlur;
+  }
 }
