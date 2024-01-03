@@ -90,3 +90,10 @@
   row-gap: 10px;
   align-items: center;
 }
+
+.biographyContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: 5px;
+  width: 65%;
+}
