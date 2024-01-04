@@ -298,6 +298,8 @@ export const Register: React.FC = () => {
         <div className={styles.profilePicturesContainer}>
           {generateProfilePictureContainers()}
         </div>
+        <hr />
+        <h4>Select preferred maximum distance and gender:</h4>
         <div className={styles.maximumDistanceContainer}>
           <label htmlFor="maximumDistance">Maximum distance:</label>
           <div className={styles.maximumDistanceInputContainer}>
