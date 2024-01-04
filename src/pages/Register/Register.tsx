@@ -30,7 +30,7 @@ export const Register: React.FC = () => {
       fourthProfilePicture: null,
       fifthProfilePicture: null,
       maximumDistance: 0,
-      preferedGender: "",
+      preferedGender: "Male",
       email: "",
       username: "",
       password: "",
@@ -328,7 +328,7 @@ export const Register: React.FC = () => {
               <input
                 type="radio"
                 id="male"
-                name="gender"
+                name="preferedGender"
                 value="Male"
                 onChange={(e) => onFormChange(e)}
                 checked={formValues.preferedGender === "Male"}
@@ -339,7 +339,7 @@ export const Register: React.FC = () => {
               <input
                 type="radio"
                 id="female"
-                name="gender"
+                name="preferedGender"
                 value="Female"
                 onChange={(e) => onFormChange(e)}
                 checked={formValues.preferedGender === "Female"}
