@@ -78,7 +78,8 @@
   text-align: center;
 }
 
-.genderContainer {
+.genderContainer,
+.preferedGenderContainer {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
