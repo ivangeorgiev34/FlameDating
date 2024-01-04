@@ -87,6 +87,10 @@
   width: 65%;
 }
 
+.preferedGenderContainer {
+  width: 100%;
+}
+
 .genderOptionContainer,
 .preferedGenderOptionContainer {
   display: flex;
@@ -155,4 +159,12 @@
 
 h4 {
   text-align: center;
+}
+
+.preferedGenderContainerWrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: 10px;
+  align-items: center;
+  width: 65%;
 }
