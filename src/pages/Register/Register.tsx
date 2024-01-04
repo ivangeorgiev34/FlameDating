@@ -320,6 +320,33 @@ export const Register: React.FC = () => {
           </div>
           <span className={styles.error}>{formErrors.maximumDistance}</span>
         </div>
+        <div className={styles.preferedGenderContainerWrapper}>
+          <p>Preferred gender:</p>
+          <div className={styles.preferedGenderContainer}>
+            <div className={styles.preferedGenderOptionContainer}>
+              <label htmlFor="male">Male:</label>
+              <input
+                type="radio"
+                id="male"
+                name="gender"
+                value="Male"
+                onChange={(e) => onFormChange(e)}
+                checked={formValues.preferedGender === "Male"}
+              />
+            </div>
+            <div className={styles.preferedGenderOptionContainer}>
+              <label htmlFor="female">Female:</label>
+              <input
+                type="radio"
+                id="female"
+                name="gender"
+                value="Female"
+                onChange={(e) => onFormChange(e)}
+                checked={formValues.preferedGender === "Female"}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
