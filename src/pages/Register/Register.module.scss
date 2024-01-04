@@ -87,7 +87,8 @@
   width: 65%;
 }
 
-.genderOptionContainer {
+.genderOptionContainer,
+.preferedGenderOptionContainer {
   display: flex;
   flex-flow: column nowrap;
   row-gap: 10px;
