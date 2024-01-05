@@ -34,11 +34,19 @@ export function useForm<T>(initialFormValues: T) {
     setFormValues(values);
   };
 
+  function setValueManually<T>(propertyName: string, value: T) {
+    setFormValues((state) => ({
+      ...state,
+      [propertyName]: value,
+    }));
+  }
+
   return {
     formValues,
     onFormChange,
     setDefaultValues,
     onFormChangeImage,
     onFormTextAreaChange,
+    setValueManually,
   };
 }
