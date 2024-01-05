@@ -347,6 +347,21 @@ export const Register: React.FC = () => {
             </div>
           </div>
         </div>
+        <hr />
+        <h4>Type out your desired user credentials:</h4>
+        <div className={styles.usernameContainer}>
+          <label htmlFor="username">Username:</label>
+          <div className={styles.usernameInputContainer}>
+            <i className="fa-solid fa-user"></i>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username..."
+              value={formValues.username}
+              onChange={(e) => onFormChange(e)}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
