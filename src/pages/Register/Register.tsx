@@ -148,7 +148,7 @@ export const Register: React.FC = () => {
 
   return (
     <div className={styles.registerCardContainer}>
-      <div className={styles.registerCard}>
+      <form className={styles.registerCard}>
         <h2>Register</h2>
         <div className={styles.firstNameContainer}>
           <label htmlFor="firstName">First name:</label>
@@ -422,7 +422,8 @@ export const Register: React.FC = () => {
           </div>
           <span className={styles.error}>{formErrors.confirmPassword}</span>
         </div>
-      </div>
+        <button className={styles.loginBtn}>Register</button>
+      </form>
     </div>
   );
 };
