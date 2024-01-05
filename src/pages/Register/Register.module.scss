@@ -57,7 +57,8 @@
 .schoolContainer,
 .jobContainer,
 .maximumDistanceContainer,
-.usernameContainer {
+.usernameContainer,
+.emailContainer {
   display: flex;
   flex-flow: column nowrap;
   row-gap: 5px;
