@@ -17,31 +17,36 @@ import { confirmPasswordValidation } from "../../validators/register/confirmPass
 import { formErrorsValidation } from "../../validators/formErrorsValidation/formErrorsValidation";
 
 export const Register: React.FC = () => {
-  const { formValues, onFormChange, onFormChangeImage, onFormTextAreaChange } =
-    useForm<IRegisterForm>({
-      firstName: "",
-      middleName: "",
-      lastName: "",
-      age: 0,
-      gender: "Male",
-      height: 0,
-      school: "",
-      job: "",
-      biography: "",
-      firstProfilePicture: null,
-      secondProfilePicture: null,
-      thirdProfilePicture: null,
-      fourthProfilePicture: null,
-      fifthProfilePicture: null,
-      maximumDistance: 0,
-      preferedGender: "Male",
-      email: "",
-      username: "",
-      password: "",
-      confirmPassword: "",
-      locationLatitude: 0,
-      locationLongitude: 0,
-    });
+  const {
+    formValues,
+    onFormChange,
+    onFormChangeImage,
+    onFormTextAreaChange,
+    setValueManually,
+  } = useForm<IRegisterForm>({
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    age: 0,
+    gender: "Male",
+    height: 0,
+    school: "",
+    job: "",
+    biography: "",
+    firstProfilePicture: null,
+    secondProfilePicture: null,
+    thirdProfilePicture: null,
+    fourthProfilePicture: null,
+    fifthProfilePicture: null,
+    maximumDistance: 0,
+    preferedGender: "Male",
+    email: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    locationLatitude: 0,
+    locationLongitude: 0,
+  });
 
   const { formErrors, onFormErrorChange } = useError<IRegisterFormErrors>({
     firstName: "",
@@ -68,6 +73,8 @@ export const Register: React.FC = () => {
   });
 
   const [responseErrors, setResponseErrors] = useState<string[]>([]);
+
+  const [isLocationRefused, setIsLocationRefused] = useState<boolean>(false);
 
   const generateProfilePictureContainers = (): JSX.Element[] => {
     const profilePicturesKeys: { [key: string]: string } = {
@@ -148,6 +155,30 @@ export const Register: React.FC = () => {
         return "Fifth profile picture:";
     }
   };
+
+  const askForLocation = (): void => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setIsLocationRefused(() => false);
+
+        setValueManually<number>("locationLatitude", position.coords.latitude);
+        setValueManually<number>(
+          "locationLongitude",
+          position.coords.longitude
+        );
+      },
+      () => {
+        setIsLocationRefused(() => true);
+      },
+      {
+        enableHighAccuracy: true,
+      }
+    );
+  };
+
+  useEffect(() => {
+    askForLocation();
+  }, [isLocationRefused]);
 
   return (
     <div className={styles.registerCardContainer}>
@@ -431,9 +462,24 @@ export const Register: React.FC = () => {
               <span className={styles.error}>{error}</span>
             </li>
           ))}
+          {isLocationRefused === true ? (
+            <li>
+              <span className={styles.error}>
+                Allow access to your location
+              </span>
+            </li>
+          ) : (
+            <></>
+          )}
         </ul>
         <button
-          disabled={formErrorsValidation(formValues, formErrors)}
+          disabled={
+            formErrorsValidation(formValues, formErrors, [
+              "school",
+              "job",
+              "biography",
+            ]) || isLocationRefused
+          }
           className={styles.loginBtn}
         >
           Register
