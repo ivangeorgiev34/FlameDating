@@ -14,6 +14,7 @@ import { maximumDistanceValidation } from "../../validators/register/maximumDist
 import { emailValidation } from "../../validators/login/emailValidation/emailValidation";
 import { passwordValidation } from "../../validators/login/passwordValidation/passwordValidation";
 import { confirmPasswordValidation } from "../../validators/register/confirmPasswordValidation/confirmPasswordValidation";
+import { formErrorsValidation } from "../../validators/formErrorsValidation/formErrorsValidation";
 
 export const Register: React.FC = () => {
   const { formValues, onFormChange, onFormChangeImage, onFormTextAreaChange } =
@@ -431,7 +432,12 @@ export const Register: React.FC = () => {
             </li>
           ))}
         </ul>
-        <button className={styles.loginBtn}>Register</button>
+        <button
+          disabled={formErrorsValidation(formValues, formErrors)}
+          className={styles.loginBtn}
+        >
+          Register
+        </button>
       </form>
     </div>
   );
