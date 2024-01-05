@@ -176,3 +176,25 @@ h4 {
   align-items: center;
   width: 65%;
 }
+
+.loginBtn {
+  all: unset;
+  background-color: rgb(0, 175, 0);
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  color: white;
+  @include globalMixins.blackBorder;
+
+  &:enabled {
+    &:hover {
+      background-color: rgb(0, 214, 0);
+      @include globalMixins.btnHoverAnimation;
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+}
