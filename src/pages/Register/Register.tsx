@@ -13,6 +13,7 @@ import { firstProfilePictureValidation } from "../../validators/register/firstPr
 import { maximumDistanceValidation } from "../../validators/register/maximumDistanceValidation/maximumDistanceValidation";
 import { emailValidation } from "../../validators/login/emailValidation/emailValidation";
 import { passwordValidation } from "../../validators/login/passwordValidation/passwordValidation";
+import { confirmPasswordValidation } from "../../validators/register/confirmPasswordValidation/confirmPasswordValidation";
 
 export const Register: React.FC = () => {
   const { formValues, onFormChange, onFormChangeImage, onFormTextAreaChange } =
@@ -397,6 +398,29 @@ export const Register: React.FC = () => {
             />
           </div>
           <span className={styles.error}>{formErrors.password}</span>
+        </div>
+        <div className={styles.confirmPasswordContainer}>
+          <label htmlFor="confirmPassword">Confirm password:</label>
+          <div className={styles.confirmPasswordInputContainer}>
+            <i className="fa-solid fa-lock"></i>
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm password..."
+              value={formValues.confirmPassword}
+              onChange={(e) => onFormChange(e)}
+              onBlur={(e) =>
+                onFormErrorChange(
+                  e,
+                  confirmPasswordValidation(
+                    formValues.password,
+                    formValues.confirmPassword
+                  )
+                )
+              }
+            />
+          </div>
+          <span className={styles.error}>{formErrors.confirmPassword}</span>
         </div>
       </div>
     </div>
