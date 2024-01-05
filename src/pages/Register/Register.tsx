@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Register.module.scss";
 import { useForm } from "../../hooks/useForm/useForm";
 import IRegisterForm from "../../interfaces/register/IRegisterForm";
@@ -65,6 +65,8 @@ export const Register: React.FC = () => {
     confirmPassword: "",
     location: "",
   });
+
+  const [responseErrors, setResponseErrors] = useState<string[]>([]);
 
   const generateProfilePictureContainers = (): JSX.Element[] => {
     const profilePicturesKeys: { [key: string]: string } = {
@@ -422,6 +424,13 @@ export const Register: React.FC = () => {
           </div>
           <span className={styles.error}>{formErrors.confirmPassword}</span>
         </div>
+        <ul className={styles.responseErrorsContainer}>
+          {responseErrors.map((error, index) => (
+            <li key={index}>
+              <span className={styles.error}>{error}</span>
+            </li>
+          ))}
+        </ul>
         <button className={styles.loginBtn}>Register</button>
       </form>
     </div>
