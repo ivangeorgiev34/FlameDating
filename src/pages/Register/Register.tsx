@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Register.module.scss";
 import { useForm } from "../../hooks/useForm/useForm";
 import IRegisterForm from "../../interfaces/register/IRegisterForm";
@@ -329,10 +329,10 @@ export const Register: React.FC = () => {
           <p>Preferred gender:</p>
           <div className={styles.preferedGenderContainer}>
             <div className={styles.preferedGenderOptionContainer}>
-              <label htmlFor="male">Male:</label>
+              <label htmlFor="preferedMale">Male:</label>
               <input
                 type="radio"
-                id="male"
+                id="preferedMale"
                 name="preferedGender"
                 value="Male"
                 onChange={(e) => onFormChange(e)}
@@ -340,10 +340,10 @@ export const Register: React.FC = () => {
               />
             </div>
             <div className={styles.preferedGenderOptionContainer}>
-              <label htmlFor="female">Female:</label>
+              <label htmlFor="preferedFemale">Female:</label>
               <input
                 type="radio"
-                id="female"
+                id="preferedFemale"
                 name="preferedGender"
                 value="Female"
                 onChange={(e) => onFormChange(e)}
