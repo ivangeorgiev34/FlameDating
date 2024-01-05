@@ -11,6 +11,7 @@ import { heightValidation } from "../../validators/register/heightValidation/hei
 import { ageValidation } from "../../validators/register/ageValidation/ageValidation";
 import { firstProfilePictureValidation } from "../../validators/register/firstProfilePictureValidation/firstProfilePictureValidation";
 import { maximumDistanceValidation } from "../../validators/register/maximumDistanceValidation/maximumDistanceValidation";
+import { emailValidation } from "../../validators/login/emailValidation/emailValidation";
 
 export const Register: React.FC = () => {
   const { formValues, onFormChange, onFormChangeImage, onFormTextAreaChange } =
@@ -361,6 +362,23 @@ export const Register: React.FC = () => {
               onChange={(e) => onFormChange(e)}
             />
           </div>
+        </div>
+        <div className={styles.emailContainer}>
+          <label htmlFor="email">Email:</label>
+          <div className={styles.emailInputContainer}>
+            <i className="fa-solid fa-envelope"></i>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email..."
+              value={formValues.email}
+              onChange={(e) => onFormChange(e)}
+              onBlur={(e) =>
+                onFormErrorChange(e, emailValidation(formValues.email))
+              }
+            />
+          </div>
+          <span className={styles.error}>{formErrors.email}</span>
         </div>
       </div>
     </div>
