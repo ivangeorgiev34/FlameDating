@@ -16,7 +16,9 @@ import { passwordValidation } from "../../validators/login/passwordValidation/pa
 import { confirmPasswordValidation } from "../../validators/register/confirmPasswordValidation/confirmPasswordValidation";
 import { formErrorsValidation } from "../../validators/formErrorsValidation/formErrorsValidation";
 import { useAppDispatch } from "../../hooks/reduxHooks";
-import { toggleLoaderOn } from "../../store/loader";
+import { toggleLoaderOff, toggleLoaderOn } from "../../store/loader";
+import { userRegister } from "../../services/authenticationService/authenticationService";
+import { useNavigate } from "react-router-dom";
 
 export const Register: React.FC = () => {
   const {
@@ -79,6 +81,8 @@ export const Register: React.FC = () => {
   const [isLocationRefused, setIsLocationRefused] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
 
   const generateProfilePictureContainers = (): JSX.Element[] => {
     const profilePicturesKeys: { [key: string]: string } = {
@@ -227,13 +231,39 @@ export const Register: React.FC = () => {
     formData.append("confirmPassword", formValues.confirmPassword);
   };
 
+  const onRegisterFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    dispatch(toggleLoaderOn());
+
+    setResponseErrors(() => []);
+
+    const formData = new FormData();
+
+    appendRegisterFormValuesToFormData(formData, formValues);
+
+    try {
+      const response = await userRegister(formData);
+
+      if (response.status === "Error") {
+        setResponseErrors((state) => [...state, response.message]);
+      } else if (response.status === "Success") {
+        navigate("/login");
+      }
+    } catch (error) {
+      navigate("/internal-server-error");
+    } finally {
+      dispatch(toggleLoaderOff());
+    }
+  };
+
   useEffect(() => {
     askForLocation();
   }, [isLocationRefused]);
 
   return (
     <div className={styles.registerCardContainer}>
-      <form className={styles.registerCard}>
+      <form onSubmit={onRegisterFormSubmit} className={styles.registerCard}>
         <h2>Register</h2>
         <div className={styles.firstNameContainer}>
           <label htmlFor="firstName">First name:</label>
