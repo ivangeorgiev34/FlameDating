@@ -190,14 +190,7 @@ export const Register: React.FC = () => {
     formData.append("middleName", formValues.middleName);
     formData.append("lastName", formValues.lastName);
     formData.append("age", formValues.age.toString());
-    formData.append(
-      "gender",
-      formValues.gender === "Male"
-        ? "0"
-        : formValues.gender === "Female"
-        ? "1"
-        : ""
-    );
+    formData.append("gender", formValues.gender);
     formData.append("height", formValues.height.toString());
     formData.append("school", formValues.school);
     formData.append("job", formValues.job);
@@ -229,14 +222,7 @@ export const Register: React.FC = () => {
     }
 
     formData.append("maximumDistance", formValues.maximumDistance.toString());
-    formData.append(
-      "preferedGender",
-      formValues.preferedGender === "Male"
-        ? "0"
-        : formValues.preferedGender === "Female"
-        ? "1"
-        : ""
-    );
+    formData.append("gender", formValues.gender);
     formData.append("password", formValues.password);
     formData.append("confirmPassword", formValues.confirmPassword);
   };
