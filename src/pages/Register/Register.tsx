@@ -15,6 +15,8 @@ import { emailValidation } from "../../validators/login/emailValidation/emailVal
 import { passwordValidation } from "../../validators/login/passwordValidation/passwordValidation";
 import { confirmPasswordValidation } from "../../validators/register/confirmPasswordValidation/confirmPasswordValidation";
 import { formErrorsValidation } from "../../validators/formErrorsValidation/formErrorsValidation";
+import { useAppDispatch } from "../../hooks/reduxHooks";
+import { toggleLoaderOn } from "../../store/loader";
 
 export const Register: React.FC = () => {
   const {
@@ -75,6 +77,8 @@ export const Register: React.FC = () => {
   const [responseErrors, setResponseErrors] = useState<string[]>([]);
 
   const [isLocationRefused, setIsLocationRefused] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
 
   const generateProfilePictureContainers = (): JSX.Element[] => {
     const profilePicturesKeys: { [key: string]: string } = {
@@ -174,6 +178,67 @@ export const Register: React.FC = () => {
         enableHighAccuracy: true,
       }
     );
+  };
+
+  const appendRegisterFormValuesToFormData = (
+    formData: FormData,
+    formValues: IRegisterForm
+  ): void => {
+    formData.append("email", formValues.email);
+    formData.append("username", formValues.username);
+    formData.append("firstName", formValues.firstName);
+    formData.append("middleName", formValues.middleName);
+    formData.append("lastName", formValues.lastName);
+    formData.append("age", formValues.age.toString());
+    formData.append(
+      "gender",
+      formValues.gender === "Male"
+        ? "0"
+        : formValues.gender === "Female"
+        ? "1"
+        : ""
+    );
+    formData.append("height", formValues.height.toString());
+    formData.append("school", formValues.school);
+    formData.append("job", formValues.job);
+    formData.append("biography", formValues.biography);
+    formData.append("locationLatitude", formValues.locationLatitude.toString());
+    formData.append(
+      "locationLongitude",
+      formValues.locationLongitude.toString()
+    );
+
+    if (formValues.firstProfilePicture !== null) {
+      formData.append("firstProfilePicture", formValues.firstProfilePicture);
+    }
+
+    if (formValues.secondProfilePicture !== null) {
+      formData.append("secondProfilePicture", formValues.secondProfilePicture);
+    }
+
+    if (formValues.thirdProfilePicture !== null) {
+      formData.append("thirdProfilePicture", formValues.thirdProfilePicture);
+    }
+
+    if (formValues.fourthProfilePicture !== null) {
+      formData.append("fourthProfilePicture", formValues.fourthProfilePicture);
+    }
+
+    if (formValues.fifthProfilePicture !== null) {
+      formData.append("fifthProfilePicture", formValues.fifthProfilePicture);
+    }
+
+    formData.append("maximumDistance", formValues.maximumDistance.toString());
+    formData.append(
+      "preferedGender",
+      formValues.preferedGender === "Male"
+        ? "0"
+        : formValues.preferedGender === "Female"
+        ? "1"
+        : ""
+    );
+    formData.append("password", formValues.password);
+    formData.append("confirmPassword", formValues.confirmPassword);
   };
 
   useEffect(() => {
