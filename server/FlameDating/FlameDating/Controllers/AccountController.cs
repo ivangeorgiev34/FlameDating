@@ -38,6 +38,16 @@ namespace FlameDating.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromForm] RegisterDto registerDto)
         {
+
+            if (string.Equals(registerDto.Password, registerDto.ConfirmPassword) == false)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new Response()
+                {
+                    Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
+                    Message = "Passwords don't match"
+                });
+            }
+
             var userExists = await userManager.FindByEmailAsync(registerDto.Email);
 
             if (userExists != null)
