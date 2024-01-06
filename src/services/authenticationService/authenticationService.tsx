@@ -16,3 +16,14 @@ export const userLogin = async (email: string, password: string) => {
 
   return responseJson;
 };
+
+export const userRegister = async (formData: FormData) => {
+  const response = await fetch(`${BASE_URL}/account/register`, {
+    method: "POST",
+    body: formData,
+  });
+
+  const responseJson = response.json();
+
+  return responseJson;
+};
