@@ -1,4 +1,5 @@
 import { BASE_URL } from "../../constants/constants";
+import IResponse from "../../interfaces/response/IResponse";
 
 export const userLogin = async (email: string, password: string) => {
   const response = await fetch(`${BASE_URL}/account/login`, {
@@ -23,7 +24,7 @@ export const userRegister = async (formData: FormData) => {
     body: formData,
   });
 
-  const responseJson = response.json();
+  const responseJson: IResponse = await response.json();
 
   return responseJson;
 };
