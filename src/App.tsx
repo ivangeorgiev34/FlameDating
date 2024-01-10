@@ -16,6 +16,7 @@ import { NotFound } from "./pages/NotFound/NotFound";
 import { BadRequest } from "./pages/BadRequest/BadRequest";
 import { MatchPopup } from "./components/MatchPopup/MatchPopup";
 import { Register } from "./pages/Register/Register";
+import { Chats } from "./pages/Chats/Chats";
 
 function App() {
   const { isVisible } = useAppSelector((state) => state.menu);
@@ -46,6 +47,7 @@ function App() {
           </Route>
           <Route element={<PrivateRouteGuard />}>
             <Route path="/matches" element={<Matches />} />
+            <Route path="/chats" element={<Chats />} />
           </Route>
         </Routes>
       </main>
