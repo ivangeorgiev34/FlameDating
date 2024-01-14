@@ -30,6 +30,16 @@ namespace FlameDating.Controllers
         {
             var userId = GetUserId(HttpContext);
 
+            if (IsIdValidGuidAndNotNull(userId!) == false
+               || await userManager.FindByIdAsync(userId) == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new Response
+                {
+                    Status = ApplicationConstants.Response.RESPONSE_STATUS_ERROR,
+                    Message = "User not found"
+                });
+            }
+
             var chats = await chatService.GetUsersChatsAsync(Guid.Parse(userId!));
 
             return StatusCode(StatusCodes.Status200OK, new Response
