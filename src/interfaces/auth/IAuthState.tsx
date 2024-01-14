@@ -6,7 +6,7 @@ export default interface IAuthState {
   age: number | null;
   email: string | null;
   username: string | null;
-  gender: 0 | 1 | null;
+  gender: "Male" | "Female" | null;
   biography: string | null;
   school: string | null;
   job: string | null;
