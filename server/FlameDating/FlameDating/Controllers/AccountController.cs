@@ -142,12 +142,24 @@ namespace FlameDating.Controllers
                             Age = user.Age,
                             Email = user.Email,
                             Username = user.UserName,
-                            Gender = user.Gender,
+                            Gender = user.Gender.ToString(),
                             Biography = user.Biography,
                             School = user.School,
                             Job = user.Job,
                             Height = user.Height,
-                            FirstProfilePicture = Convert.ToBase64String(user.FirstProfilePicture)
+                            FirstProfilePicture = Convert.ToBase64String(user.FirstProfilePicture),
+                            SecondProfilePicture = user.SecondProfilePicture != null
+                            ? Convert.ToBase64String(user.SecondProfilePicture)
+                            : null,
+                            ThirdProfilePicture = user.ThirdProfilePicture != null
+                            ? Convert.ToBase64String(user.ThirdProfilePicture)
+                            : null,
+                            FourthProfilePicture = user.FourthProfilePicture != null
+                            ? Convert.ToBase64String(user.FourthProfilePicture)
+                            : null,
+                            FifthProfilePicture = user.FifthProfilePicture != null
+                            ? Convert.ToBase64String(user.FifthProfilePicture)
+                            : null,
 
                         },
                         token = new JwtSecurityTokenHandler().WriteToken(token),
