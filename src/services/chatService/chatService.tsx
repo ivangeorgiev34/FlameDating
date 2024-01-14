@@ -24,3 +24,21 @@ export const getChatId = async (
     return { status: "Error", message: "Unexpected error" };
   }
 };
+
+export const getUsersChats = async (token: string): Promise<IResponse> => {
+  try {
+    const response = await fetch(`${BASE_URL}/chat/chats`, {
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      method: "GET",
+    });
+
+    const responseJson: IResponse = await response.json();
+
+    return responseJson;
+  } catch (error) {
+    return { status: "Error", message: "Unexpected error" };
+  }
+};
