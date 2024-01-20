@@ -9,5 +9,7 @@ namespace FlameDating.Infrastructure.Dtos.Chat
         public UserDto CurrentUser { get; set; } = null!;
 
         public UserDto RecipientUser { get; set; } = null!;
+
+        public int UnseenMessagesCount { get; set; }
     }
 }
