@@ -40,7 +40,8 @@ namespace FlameDating.Core.Services
                 .Include(m => m.FirstUser)
                 .Include(m => m.SecondUser)
                 .Include(m => m.Chat)
-                .OrderBy(m => m.Chat.Messages.Count(m => m.IsSeen == false))
+                .ThenInclude(c => c.Messages)
+                .OrderBy(m => m.Chat.Messages.Select(m => m.Date))
                 .Where(m => m.FirstUserId == userId || m.SecondUserId == userId)
                 .Select(m => new GetUsersChatsDto()
                 {
@@ -158,7 +159,8 @@ namespace FlameDating.Core.Services
                         FifthProfilePicture = m.SecondUser.FifthProfilePicture != null
                         ? Convert.ToBase64String(m.SecondUser.FifthProfilePicture)
                         : null
-                    }
+                    },
+                    UnseenMessagesCount = m.Chat.Messages.Count(m => m.IsSeen == false)
                 })
                 .ToListAsync();
 
