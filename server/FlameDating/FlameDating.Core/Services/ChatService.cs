@@ -41,8 +41,8 @@ namespace FlameDating.Core.Services
                 .Include(m => m.SecondUser)
                 .Include(m => m.Chat)
                 .ThenInclude(c => c.Messages)
-                .OrderBy(m => m.Chat.Messages.Select(m => m.Date))
                 .Where(m => m.FirstUserId == userId || m.SecondUserId == userId)
+                .OrderBy(m => m.Chat.Messages.OrderByDescending(m => m.Date).FirstOrDefault())
                 .Select(m => new GetUsersChatsDto()
                 {
                     Id = m.Id.ToString(),
