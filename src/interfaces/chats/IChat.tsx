@@ -4,4 +4,5 @@ export default interface IChat {
   id: string;
   currentUser: IUser;
   recipientUser: IUser;
+  unseenMessagesCount: number;
 }
