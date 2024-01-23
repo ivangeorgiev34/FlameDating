@@ -22,7 +22,7 @@ export const Chats: React.FC = () => {
         if (response.status === "Error") {
           navigate("/not-found");
         } else if (response.status === "Success") {
-          setChats((state) => [...state, response.content.chats]);
+          setChats(() => response.content.chats);
         }
       })
       .catch(() => {
@@ -31,7 +31,9 @@ export const Chats: React.FC = () => {
       .finally(() => {
         dispatch(toggleLoaderOff());
       });
-  }, [chats]);
+  }, []);
 
-  return <div>chats</div>;
+  return (
+    <>{chats.length === 0 ? <div>no chats</div> : <div>{chats.length}</div>}</>
+  );
 };
